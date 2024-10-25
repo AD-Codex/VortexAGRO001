@@ -1,7 +1,9 @@
-
+// STM32-1 serial com check, sending-1001 , need-1001
+// STM32-2 serial com check, sending-2001 , need-2001
+// time limit 3s
+// if time exceed try in 5s
 
 int Serial_com = 0;
-int time_start = 0;
 int time_space = 0;
 
 
@@ -12,24 +14,33 @@ void init_serial() {
 
 
 void stm32_check() {
+  String receivedMessage;
+  int time_start = 0;
+
   // communicate with STM 1 ..............
-  SerialPort.println(1);
+  SerialPort.println("1001\n");
 
   time_start = millis();
   while (true) {
-    time_space = millis() - time_start;
-
-    if ( time_space > 2000) {
+    if ( (millis() - time_start) > 3000) {
       // Serial.println("STM 1 not detected..");
       Serial_com = 0;
       break;
     }
     else if ( SerialPort.available()) {
-      char number = SerialPort.read();
-      
-      if ( number == '1') {
-        // Serial.println("STM 1 detected..");
-        Serial_com = 1;
+      char receivedChar = SerialPort.read();
+      // Serial.println(receivedChar);
+      if ( receivedChar == '\n') {
+        Serial.println(receivedMessage);
+        if ( receivedMessage == "1001") {
+          Serial.println("STM 1 detected..");
+          Serial_com = 1;
+          break;
+        }
+        receivedMessage = "";
+      }
+      else {
+        receivedMessage =  receivedMessage + receivedChar;
       }
     }
 
@@ -37,23 +48,28 @@ void stm32_check() {
 
 
   // communicate with STM 2 ..............
-  SerialPort.println(2);
+  SerialPort.println("2001\n");
 
   time_start = millis();
   while (true) {
-    time_space = millis() - time_start;
-
-    if ( time_space > 2000) {
-      // Serial.println("STM 2 not detected..");
+    if ( (millis() - time_start) > 3000) {
+      // Serial.println("STM 1 not detected..");
       Serial_com = 0;
       break;
     }
     else if ( SerialPort.available()) {
-      char number = SerialPort.read();
-      
-      if ( number == '2') {
-        // Serial.println("STM 2 detected..");
-        Serial_com = 1;
+      char receivedChar = SerialPort.read();
+      if ( receivedChar == '\n') {
+        // Serial.println(receivedMessage);
+        if ( receivedMessage == "2001") {
+          Serial.println("STM 2 detected..");
+          Serial_com = 1;
+          break;
+        }
+        receivedMessage = "";
+      }
+      else {
+        receivedMessage += receivedChar;
       }
     }
 

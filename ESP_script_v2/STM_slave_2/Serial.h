@@ -8,19 +8,27 @@ void init_serialBus() {
 }
 
 void serialBus_check() {
-  if (Serial2.available()) {
-    char number = Serial2.read();
-    Serial.println(number);
-    if ( number == 'A') {
-      state = state ^ 1;
-    }
-  }
+  String receivedMessage;
 
-  if (state == 1) {
-    digitalWrite(PC13, HIGH);
-  }
-  else {
-    digitalWrite(PC13, LOW);
+  while (true) {
+    if (Serial2.available()) {
+      char receivedChar = Serial2.read();
+      // Serial.println(receivedChar);
+
+      if ( receivedChar == '\n') {
+        if ( receivedMessage == "201") {
+          Serial.println(receivedMessage);
+          Serial2.println("201\n");
+          break;
+        }
+        receivedMessage = "";
+      }
+      else {
+        receivedMessage += receivedChar;
+      }
+
+    }
+
   }
 
 }

@@ -1,158 +1,185 @@
 
 //Communication Protocol
-//a - valve A1 close call
-//b - valve A1 open call
-//c - valve A2 close call
-//d - valve A2 open call
-//e - valve A3 close call
-//f - valve A3 open call
-//g - valve A4 close call
-//h - valve A4 open call
-//i - valve A5 close call
-//j - valve A5 open call
-//k - valve A6 close call
-//l - valve A6 open call
+//1010 - valve A1 close call
+//1011 - valve A1 open call
+//1020 - valve A2 close call
+//1021 - valve A2 open call
+//1030 - valve A3 close call
+//1031 - valve A3 open call
+//1040 - valve A4 close call
+//1041 - valve A4 open call
+//1050 - valve A5 close call
+//1051 - valve A5 open call
+//1060 - valve A6 close call
+//1061 - valve A6 open call
 
-//m - valve B1 close call
-//n - valve B1 open call
-//o - valve B2 close call
-//p - valve B2 open call
-//q - valve B3 close call
-//r - valve B3 open call
-//s - valve B4 close call
-//t - valve B4 open call
-//u - valve B5 close call
-//v - valve B5 open call
-//w - valve B6 close call
-//x - valve B6 open call
+//2010 - valve B1 close call
+//2011 - valve B1 open call
+//2020 - valve B2 close call
+//2021 - valve B2 open call
+//2030 - valve B3 close call
+//2031 - valve B3 open call
+//2040 - valve B4 close call
+//2041 - valve B4 open call
+//2050 - valve B5 close call
+//2051 - valve B5 open call
+//2060 - valve B6 close call
+//2061 - valve B6 open call
+
+// if recived send data break loop and print states
+// time limit 8s. 
+// if recived 9999 break with error
+
 
 #include <HardwareSerial.h>
 
 HardwareSerial SerialPort(2); // use UART2
 
 
-
-
-void slave_callback(char send_) {
+void slave_callback(String send_) {
   SerialPort.flush();
+
+  int time_start = millis();
+  String receivedMessage;
+  String Msg;
+
   while (true) {
     if (SerialPort.available()) {
-      char number = SerialPort.read();
-      Serial.println(number);
+      char receivedChar = SerialPort.read();
+      // Serial.println(number);
 
-      if ( send_=='a' && number == 'A') {
-        Serial.println("valve A1 close");
-        break;
+      if ( receivedChar == '\n') {
+        Msg = receivedMessage;
+        Serial.println(receivedMessage);
+        receivedMessage = "";
       }
-      else if ( send_=='b' && number == 'B') {
-        Serial.println("valve A1 open");
-        break;
+      else {
+        receivedMessage = receivedMessage + receivedChar;
       }
-
-      if ( send_=='c' && number == 'C') {
-        Serial.println("valve A2 close");
-        break;
-      }
-      else if ( send_=='d' && number == 'D') {
-        Serial.println("valve A2 open");
-        break;
-      }
-
-      if ( send_=='e' && number == 'E') {
-        Serial.println("valve A3 close");
-        break;
-      }
-      else if ( send_=='f' && number == 'F') {
-        Serial.println("valve A3 open");
-        break;
-      }
-
-      if ( send_=='g' && number == 'G') {
-        Serial.println("valve A4 close");
-        break;
-      }
-      else if ( send_=='h' && number == 'H') {
-        Serial.println("valve A4 open");
-        break;
-      }
-
-      if ( send_=='i' && number == 'I') {
-        Serial.println("valve A5 close");
-        break;
-      }
-      else if ( send_=='j' && number == 'J') {
-        Serial.println("valve A5 open");
-        break;
-      }
-
-      if ( send_=='k' && number == 'K') {
-        Serial.println("valve A6 close");
-        break;
-      }
-      else if ( send_=='l' && number == 'L') {
-        Serial.println("valve A6 open");
-        break;
-      }
-
-      if ( send_=='m' && number == 'M') {
-        Serial.println("valve B1 close");
-        break;
-      }
-      else if ( send_=='n' && number == 'N') {
-        Serial.println("valve B1 open");
-        break;
-      }
-
-      if ( send_=='o' && number == 'O') {
-        Serial.println("valve B2 close");
-        break;
-      }
-      else if ( send_=='p' && number == 'P') {
-        Serial.println("valve B2 open");
-        break;
-      }
-
-      if ( send_=='q' && number == 'Q') {
-        Serial.println("valve B3 close");
-        break;
-      }
-      else if ( send_=='r' && number == 'R') {
-        Serial.println("valve B3 open");
-        break;
-      }
-
-      if ( send_=='s' && number == 'S') {
-        Serial.println("valve B4 close");
-        break;
-      }
-      else if ( send_=='t' && number == 'T') {
-        Serial.println("valve B4 open");
-        break;
-      }
-
-      if ( send_=='u' && number == 'U') {
-        Serial.println("valve B5 close");
-        break;
-      }
-      else if ( send_=='v' && number == 'V') {
-        Serial.println("valve B5 open");
-        break;
-      }
-
-      if ( send_=='w' && number == 'W') {
-        Serial.println("valve B6 close");
-        break;
-      }
-      else if ( send_=='x' && number == 'X') {
-        Serial.println("valve B6 open");
-        break;
-      }
-    
     }
+
+
+    if ( send_== "1010" && Msg == "1010") {
+      Serial.println("valve A1 close");
+      break;
+    }
+    else if ( send_== "1011" && Msg == "1011") {
+      Serial.println("valve A1 open");
+      break;
+    }
+
+    if ( send_== "1020" && Msg == "1020") {
+      Serial.println("valve A2 close");
+      break;
+    }
+    else if ( send_== "1021" && Msg == "1021") {
+      Serial.println("valve A2 open");
+      break;
+    }
+
+    if ( send_== "1030" && Msg == "1030") {
+      Serial.println("valve A3 close");
+      break;
+    }
+    else if ( send_== "1031" && Msg == "1031") {
+      Serial.println("valve A3 open");
+      break;
+    }
+
+    if ( send_== "1040" && Msg == "1040") {
+      Serial.println("valve A4 close");
+      break;
+    }
+    else if ( send_== "1041" && Msg == "1041") {
+      Serial.println("valve A4 open");
+      break;
+    }
+
+    if ( send_== "1050" && Msg == "1050") {
+      Serial.println("valve A5 close");
+      break;
+    }
+    else if ( send_== "1051" && Msg == "1051") {
+      Serial.println("valve A5 open");
+      break;
+    }
+
+    if ( send_== "1060" && Msg == "1060") {
+      Serial.println("valve A6 close");
+      break;
+    }
+    else if ( send_== "1061" && Msg == "1061") {
+      Serial.println("valve A6 open");
+      break;
+    }
+
+    if ( send_== "2010" && Msg == "2010") {
+      Serial.println("valve B1 close");
+      break;
+    }
+    else if ( send_== "2011" && Msg == "2011") {
+      Serial.println("valve B1 open");
+      break;
+    }
+
+    if ( send_== "2020" && Msg == "2020") {
+      Serial.println("valve B2 close");
+      break;
+    }
+    else if ( send_== "2021" && Msg == "2021") {
+      Serial.println("valve B2 open");
+      break;
+    }
+
+    if ( send_== "2030" && Msg == "2030") {
+      Serial.println("valve B3 close");
+      break;
+    }
+    else if ( send_== "2031" && Msg == "2031") {
+      Serial.println("valve B3 open");
+      break;
+    }
+
+    if ( send_== "2040" && Msg == "2040") {
+      Serial.println("valve B4 close");
+      break;
+    }
+    else if ( send_== "2041" && Msg == "2041") {
+      Serial.println("valve B4 open");
+      break;
+    }
+
+    if ( send_== "2050" && Msg == "2050") {
+      Serial.println("valve B5 close");
+      break;
+    }
+    else if ( send_== "2051" && Msg == "2051") {
+      Serial.println("valve B5 open");
+      break;
+    }
+
+    if ( send_== "2060" && Msg == "2060") {
+      Serial.println("valve B6 close");
+      break;
+    }
+    else if ( send_== "2061" && Msg == "2061") {
+      Serial.println("valve B6 open");
+      break;
+    }
+    
+    
 
     if ( back_BN.pressed ) {
       Serial.println("Back pressed");
       back_BN.pressed = false;
+      break;
+    }
+    else if ( (millis() - time_start) > 8000 ) {
+      Serial.println("error, time exceed");
+      break;
+    }
+    else if ( Msg == "9999") {
+      Serial.println("stm recived, time exceed");
       break;
     }
 
@@ -163,8 +190,8 @@ void slave_callback(char send_) {
 
 struct Valve {
   String valve;
-  char closeIndex;
-  char openIndex;
+  String closeIndex;
+  String openIndex;
   bool state;
 
   void open( bool state) {
@@ -172,50 +199,52 @@ struct Valve {
     if ( state == true) {
       Serial.println(" valve_opening.... ");
       
-      SerialPort.print(openIndex);
+      SerialPort.print(openIndex + "\n");
       Serial.println(openIndex);
       slave_callback(openIndex);
     }
     else {
       Serial.println(" valve_closing.... ");
       
-      SerialPort.print(closeIndex);
+      SerialPort.print(closeIndex + "\n");
       Serial.println(closeIndex);
       slave_callback(closeIndex);
     }
     delay(1000);
     
   }
+
   
 };
 
-Valve valve_A1 = {"valve1", 'a', 'b', false};
-Valve valve_A2 = {"valve2", 'c', 'd', false};
-Valve valve_A3 = {"valve3", 'e', 'f', false};
-Valve valve_A4 = {"valve4", 'g', 'h', false};
-Valve valve_A5 = {"valve5", 'i', 'j', false};
-Valve valve_A6 = {"valve6", 'k', 'l', false};
-Valve valve_B1 = {"valve7", 'm', 'n', false};
-Valve valve_B2 = {"valve8", 'o', 'p', false};
-Valve valve_B3 = {"valve9", 'q', 'r', false};
-Valve valve_B4 = {"valve10", 's', 't', false};
-Valve valve_B5 = {"valve11", 'u', 'v', false};
-Valve valve_B6 = {"valve12", 'w', 'x', false};
+Valve valve_A1 = {"valve1", "1010", "1011", false};
+Valve valve_A2 = {"valve2", "1020", "1021", false};
+Valve valve_A3 = {"valve3", "1030", "1031", false};
+Valve valve_A4 = {"valve4", "1040", "1041", false};
+Valve valve_A5 = {"valve5", "1050", "1051", false};
+Valve valve_A6 = {"valve6", "1060", "1061", false};
+Valve valve_B1 = {"valve7", "2010", "2011", false};
+Valve valve_B2 = {"valve8", "2020", "2021", false};
+Valve valve_B3 = {"valve9", "2030", "2031", false};
+Valve valve_B4 = {"valve10", "2040", "2041", false};
+Valve valve_B5 = {"valve11", "2050", "2051", false};
+Valve valve_B6 = {"valve12", "2060", "2061", false};
 
 
-void valveCheck() {
-  
+
+void valveReSet() {
+
 }
 
 
 void valveExample() {
-  SerialPort.print('i');
-  Serial.println("i");
-  slave_callback('i');
+  SerialPort.print("1010\n");
+  Serial.println("1010");
+  slave_callback("1010");
   delay(5000);
 
-  SerialPort.print('j');
-  Serial.println("j");
-  slave_callback('j');
+  SerialPort.print("1011\n");
+  Serial.println("1010");
+  slave_callback("1010");
   delay(5000);
 }

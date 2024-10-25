@@ -5,6 +5,7 @@
 # include "TSensor.h"
 # include "Valves.h"
 # include "Dashboard.h"
+# include "Switches.h"
 # include "Serial.h"
 
 
@@ -34,25 +35,27 @@ void setup() {
   state_list_index_update();
 
 
-  // init the relay module
-  init_Relay();
+  // // init the relay module
+  // init_Relay();
 
 
-  // init the temp sensors
-  init_TSensor();
+  // // init the temp sensors
+  // init_TSensor();
 
 
-  // init valves
-  valveCheck();
+  // // init valves
+  // Switch_status();
+  // valveReSet();
 
 
-  delay(1000);
+  // delay(1000);
   // start system
   dash_1000.display_(0);
 
 }
 
 void loop() {
+
 
   dashboard_update();
   delay(200);

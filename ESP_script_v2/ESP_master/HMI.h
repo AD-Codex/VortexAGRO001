@@ -1,9 +1,9 @@
 
 
 #define BUTTON_EMERG_PIN 12   // emergency stop
+#define BUTTON_UP_PIN 25      // up
 #define BUTTON_EN_PIN 26      // enter
 #define BUTTON_BK_PIN 27      // back
-#define BUTTON_UP_PIN 25      // up
 #define BUTTON_DN_PIN 14      // down
 
 

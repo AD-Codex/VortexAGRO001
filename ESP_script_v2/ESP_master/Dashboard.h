@@ -126,452 +126,451 @@ void dashboard(int state){
     
   }
   else {
+    switch (state) {
+      case 1000:  
+          dash_1000.display_(0);
+          break;
+          
 
-  switch (state) {
-    case 1000:  
-        dash_1000.display_(0);
-        break;
-        
+  // Clean process -------------------------
+      case 2000:  
+          dash_2000.display_(0);
+          break;
 
-// Clean process -------------------------
-    case 2000:  
-        dash_2000.display_(0);
-        break;
+      case 2010:  
+          dash_2010.display_(0);
+          break;
 
-    case 2010:  
-        dash_2010.display_(0);
-        break;
+      case 2020:  
+          dash_2020.display_(0);
+          break;
 
-    case 2020:  
-        dash_2020.display_(0);
-        break;
-
-    case 2030:  
-        dash_2030.display_(0);
-        break;
-
-
-// Milk process ---------------------------
-    case 3000:  
-        dash_3000.display_(0);
-        break;
+      case 2030:  
+          dash_2030.display_(0);
+          break;
 
 
-// Settings ----------------------------------
-    case 4000:  
-        dash_4000.display_(0);
-        break;
-// Temp setting    
-    case 4010:
-        dash_4010.display_(0);
-        break;
-    
-    case 4110:
-        dash_4110.display_(0);
-        break;
-
-    case 4111:
-        number = display_value;
-        dash_4111.display_(number);
-        break;
-
-    case 4120:
-        dash_4120.display_(0);
-        break;
-
-    case 4121:
-        number = display_value;
-        dash_4121.display_(number);
-        break;
-
-    case 4130:
-        dash_4130.display_(0);
-        break;
-
-    case 4131:
-        number = display_value;
-        dash_4131.display_(number);
-        break;
-
-    case 4140:
-        dash_4140.display_(0);
-        break;
-
-    case 4141:
-        number = display_value;
-        dash_4141.display_(number);
-        break;
-// Time setting    
-    case 4020:
-        dash_4020.display_(0);
-        break;
-
-    case 4210:
-        dash_4210.display_(0);
-        break;
-
-    case 4211:
-        number = display_value;
-        dash_4211.display_(number);
-        break;
-
-    case 4220:
-        dash_4220.display_(0);
-        break;
-
-    case 4221:
-        number = display_value;
-        dash_4221.display_(number);
-        break;
-
-    case 4230:
-        dash_4230.display_(0);
-        break;
-
-    case 4231:
-        number = display_value;
-        dash_4231.display_(number);
-        break;
-
-    case 4240:
-        dash_4240.display_(0);
-        break;
-
-    case 4241:
-        number = display_value;
-        dash_4241.display_(number);
-        break;
+  // Milk process ---------------------------
+      case 3000:  
+          dash_3000.display_(0);
+          break;
 
 
-// Testing -----------------------------------        
-    case 5000:  
-        dash_5000.display_(0);
-        break;
+  // Settings ----------------------------------
+      case 4000:  
+          dash_4000.display_(0);
+          break;
+  // Temp setting    
+      case 4010:
+          dash_4010.display_(0);
+          break;
+      
+      case 4110:
+          dash_4110.display_(0);
+          break;
 
-    case 5001:  
-        dash_5001.display_(0);
-        break;
+      case 4111:
+          number = display_value;
+          dash_4111.display_(number);
+          break;
 
-    case 5002:  
-        dash_5002.display_(0);
-        break;
+      case 4120:
+          dash_4120.display_(0);
+          break;
 
-    case 5003:  
-        dash_5003.display_(0);
-        break;
-// temp sensor testing ----------------------        
-    case 5010:  
-        dash_5010.display_(0);
-        break;
-    case 5015:  
-        number = TSensor1.Read();
-        dash_5015.display_(number);
-        break;
-        
-    case 5020:  
-        dash_5020.display_(0);
-        break;
-    case 5025:
-        number = TSensor2.Read();
-        dash_5025.display_(number);
-        break;
-        
-    case 5030:  
-        dash_5030.display_(0);
-        break;
-    case 5035:
-        number = display_value;
-        dash_5035.display_(number);
-        break;
-// valve testing -----------------        
-    case 5040:  
-        dash_5040.display_(0);
-        break;
-    case 5045:  
-        dash_5045.display_(0);
-        valve_A1.open(true);
-        current_state = 5040;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5050:  
-        dash_5050.display_(0);
-        break;
-    case 5055:  
-        dash_5055.display_(0);
-        valve_A1.open(false);
-        current_state = 5050;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5060:  
-        dash_5060.display_(0);
-        break;
-    case 5065:  
-        dash_5065.display_(0);
-        valve_A2.open(true);
-        current_state = 5060;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5070:  
-        dash_5070.display_(0);
-        break;
-    case 5075:  
-        dash_5075.display_(0);
-        valve_A2.open(false);
-        current_state = 5070;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5080:  
-        dash_5080.display_(0);
-        break;
-    case 5085:  
-        dash_5085.display_(0);
-        valve_A3.open(true);
-        current_state = 5080;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5090:  
-        dash_5090.display_(0);
-        break;
-    case 5095:  
-        dash_5095.display_(0);
-        valve_A3.open(false);
-        current_state = 5090;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5100:  
-        dash_5100.display_(0);
-        break;
-    case 5105:  
-        dash_5105.display_(0);
-        valve_A4.open(true);
-        current_state = 5100;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5110:  
-        dash_5110.display_(0);
-        break;
-    case 5115:  
-        dash_5115.display_(0);
-        valve_A4.open(false);
-        current_state = 5110;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5120:  
-        dash_5120.display_(0);
-        break;
-    case 5125:  
-        dash_5125.display_(0);
-        valve_A5.open(true);
-        current_state = 5120;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5130:  
-        dash_5130.display_(0);
-        break;
-    case 5135:  
-        dash_5135.display_(0);
-        valve_A5.open(false);
-        current_state = 5130;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4121:
+          number = display_value;
+          dash_4121.display_(number);
+          break;
 
-    case 5140:  
-        dash_5140.display_(0);
-        break;
-    case 5145:  
-        dash_5145.display_(0);
-        valve_A6.open(true);
-        current_state = 5140;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5150:  
-        dash_5150.display_(0);
-        break;
-    case 5155:  
-        dash_5155.display_(0);
-        valve_A6.open(false);
-        current_state = 5150;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4130:
+          dash_4130.display_(0);
+          break;
 
-    case 5160:  
-        dash_5160.display_(0);
-        break;
-    case 5165:  
-        dash_5165.display_(0);
-        valve_B1.open(true);
-        current_state = 5160;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5170:  
-        dash_5170.display_(0);
-        break;
-    case 5175:  
-        dash_5175.display_(0);
-        valve_B1.open(false);
-        current_state = 5170;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4131:
+          number = display_value;
+          dash_4131.display_(number);
+          break;
 
-    case 5180:  
-        dash_5180.display_(0);
-        break;
-    case 5185:  
-        dash_5185.display_(0);
-        valve_B2.open(true);
-        current_state = 5180;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5190:  
-        dash_5190.display_(0);
-        break;
-    case 5195:  
-        dash_5195.display_(0);
-        valve_B2.open(false);
-        current_state = 5190;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4140:
+          dash_4140.display_(0);
+          break;
 
-    case 5200:  
-        dash_5200.display_(0);
-        break;
-    case 5205:  
-        dash_5205.display_(0);
-        valve_B3.open(true);
-        current_state = 5200;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5210:  
-        dash_5210.display_(0);
-        break;
-    case 5215:  
-        dash_5215.display_(0);
-        valve_B3.open(false);
-        current_state = 5210;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4141:
+          number = display_value;
+          dash_4141.display_(number);
+          break;
+  // Time setting    
+      case 4020:
+          dash_4020.display_(0);
+          break;
 
-    case 5220:  
-        dash_5220.display_(0);
-        break;
-    case 5225:  
-        dash_5225.display_(0);
-        valve_B4.open(true);
-        current_state = 5220;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5230:  
-        dash_5230.display_(0);
-        break;
-    case 5235:  
-        dash_5235.display_(0);
-        valve_B4.open(false);
-        current_state = 5230;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4210:
+          dash_4210.display_(0);
+          break;
 
-    case 5240:  
-        dash_5240.display_(0);
-        break;
-    case 5245:  
-        dash_5245.display_(0);
-        valve_B5.open(true);
-        current_state = 5240;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4211:
+          number = display_value;
+          dash_4211.display_(number);
+          break;
 
-    case 5250:  
-        dash_5250.display_(0);
-        break;
-    case 5255:  
-        dash_5255.display_(0);
-        valve_B5.open(false);
-        current_state = 5250;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-// pump tesing -------------     
-    case 5320:  
-        dash_5320.display_(0);
-        break;
-    case 5325:  
-        dash_5325.display_(0);
-        pump1.Trigger(true);
-        delay(1000);
-        current_state = 5320;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5330:  
-        dash_5330.display_(0);
-        break;
-    case 5335:  
-        dash_5335.display_(0);
-        pump1.Trigger(false);
-        delay(1000);
-        current_state = 5330;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5340:  
-        dash_5340.display_(0);
-        break;
-    case 5345:  
-        dash_5345.display_(0);
-        pump2.Trigger(true);
-        delay(1000);
-        current_state = 5340;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5350:  
-        dash_5350.display_(0);
-        break;
-    case 5355:  
-        dash_5355.display_(0);
-        pump2.Trigger(false);
-        delay(1000);
-        current_state = 5350;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5360:  
-        dash_5360.display_(0);
-        break;
-    case 5365:  
-        dash_5365.display_(0);
-        pump3.Trigger(true);
-        delay(1000);
-        current_state = 5360;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
-        
-    case 5370:  
-        dash_5370.display_(0);
-        break;
-    case 5375:  
-        dash_5375.display_(0);
-        pump3.Trigger(false);
-        delay(1000);
-        current_state = 5370;
-        enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
-        break;
+      case 4220:
+          dash_4220.display_(0);
+          break;
 
-        
-  }
+      case 4221:
+          number = display_value;
+          dash_4221.display_(number);
+          break;
+
+      case 4230:
+          dash_4230.display_(0);
+          break;
+
+      case 4231:
+          number = display_value;
+          dash_4231.display_(number);
+          break;
+
+      case 4240:
+          dash_4240.display_(0);
+          break;
+
+      case 4241:
+          number = display_value;
+          dash_4241.display_(number);
+          break;
+
+
+  // Testing -----------------------------------        
+      case 5000:  
+          dash_5000.display_(0);
+          break;
+
+      case 5001:  
+          dash_5001.display_(0);
+          break;
+
+      case 5002:  
+          dash_5002.display_(0);
+          break;
+
+      case 5003:  
+          dash_5003.display_(0);
+          break;
+  // temp sensor testing ----------------------        
+      case 5010:  
+          dash_5010.display_(0);
+          break;
+      case 5015:  
+          number = TSensor1.Read();
+          dash_5015.display_(number);
+          break;
+          
+      case 5020:  
+          dash_5020.display_(0);
+          break;
+      case 5025:
+          number = TSensor2.Read();
+          dash_5025.display_(number);
+          break;
+          
+      case 5030:  
+          dash_5030.display_(0);
+          break;
+      case 5035:
+          number = display_value;
+          dash_5035.display_(number);
+          break;
+  // valve testing -----------------        
+      case 5040:  
+          dash_5040.display_(0);
+          break;
+      case 5045:  
+          dash_5045.display_(0);
+          valve_A1.open(true);
+          current_state = 5040;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5050:  
+          dash_5050.display_(0);
+          break;
+      case 5055:  
+          dash_5055.display_(0);
+          valve_A1.open(false);
+          current_state = 5050;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5060:  
+          dash_5060.display_(0);
+          break;
+      case 5065:  
+          dash_5065.display_(0);
+          valve_A2.open(true);
+          current_state = 5060;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5070:  
+          dash_5070.display_(0);
+          break;
+      case 5075:  
+          dash_5075.display_(0);
+          valve_A2.open(false);
+          current_state = 5070;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5080:  
+          dash_5080.display_(0);
+          break;
+      case 5085:  
+          dash_5085.display_(0);
+          valve_A3.open(true);
+          current_state = 5080;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5090:  
+          dash_5090.display_(0);
+          break;
+      case 5095:  
+          dash_5095.display_(0);
+          valve_A3.open(false);
+          current_state = 5090;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5100:  
+          dash_5100.display_(0);
+          break;
+      case 5105:  
+          dash_5105.display_(0);
+          valve_A4.open(true);
+          current_state = 5100;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5110:  
+          dash_5110.display_(0);
+          break;
+      case 5115:  
+          dash_5115.display_(0);
+          valve_A4.open(false);
+          current_state = 5110;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5120:  
+          dash_5120.display_(0);
+          break;
+      case 5125:  
+          dash_5125.display_(0);
+          valve_A5.open(true);
+          current_state = 5120;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5130:  
+          dash_5130.display_(0);
+          break;
+      case 5135:  
+          dash_5135.display_(0);
+          valve_A5.open(false);
+          current_state = 5130;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5140:  
+          dash_5140.display_(0);
+          break;
+      case 5145:  
+          dash_5145.display_(0);
+          valve_A6.open(true);
+          current_state = 5140;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5150:  
+          dash_5150.display_(0);
+          break;
+      case 5155:  
+          dash_5155.display_(0);
+          valve_A6.open(false);
+          current_state = 5150;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5160:  
+          dash_5160.display_(0);
+          break;
+      case 5165:  
+          dash_5165.display_(0);
+          valve_B1.open(true);
+          current_state = 5160;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5170:  
+          dash_5170.display_(0);
+          break;
+      case 5175:  
+          dash_5175.display_(0);
+          valve_B1.open(false);
+          current_state = 5170;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5180:  
+          dash_5180.display_(0);
+          break;
+      case 5185:  
+          dash_5185.display_(0);
+          valve_B2.open(true);
+          current_state = 5180;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5190:  
+          dash_5190.display_(0);
+          break;
+      case 5195:  
+          dash_5195.display_(0);
+          valve_B2.open(false);
+          current_state = 5190;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5200:  
+          dash_5200.display_(0);
+          break;
+      case 5205:  
+          dash_5205.display_(0);
+          valve_B3.open(true);
+          current_state = 5200;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5210:  
+          dash_5210.display_(0);
+          break;
+      case 5215:  
+          dash_5215.display_(0);
+          valve_B3.open(false);
+          current_state = 5210;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5220:  
+          dash_5220.display_(0);
+          break;
+      case 5225:  
+          dash_5225.display_(0);
+          valve_B4.open(true);
+          current_state = 5220;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5230:  
+          dash_5230.display_(0);
+          break;
+      case 5235:  
+          dash_5235.display_(0);
+          valve_B4.open(false);
+          current_state = 5230;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5240:  
+          dash_5240.display_(0);
+          break;
+      case 5245:  
+          dash_5245.display_(0);
+          valve_B5.open(true);
+          current_state = 5240;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+      case 5250:  
+          dash_5250.display_(0);
+          break;
+      case 5255:  
+          dash_5255.display_(0);
+          valve_B5.open(false);
+          current_state = 5250;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+  // pump tesing -------------     
+      case 5320:  
+          dash_5320.display_(0);
+          break;
+      case 5325:  
+          dash_5325.display_(0);
+          pump1.Trigger(true);
+          delay(1000);
+          current_state = 5320;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5330:  
+          dash_5330.display_(0);
+          break;
+      case 5335:  
+          dash_5335.display_(0);
+          pump1.Trigger(false);
+          delay(1000);
+          current_state = 5330;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5340:  
+          dash_5340.display_(0);
+          break;
+      case 5345:  
+          dash_5345.display_(0);
+          pump2.Trigger(true);
+          delay(1000);
+          current_state = 5340;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5350:  
+          dash_5350.display_(0);
+          break;
+      case 5355:  
+          dash_5355.display_(0);
+          pump2.Trigger(false);
+          delay(1000);
+          current_state = 5350;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5360:  
+          dash_5360.display_(0);
+          break;
+      case 5365:  
+          dash_5365.display_(0);
+          pump3.Trigger(true);
+          delay(1000);
+          current_state = 5360;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+          
+      case 5370:  
+          dash_5370.display_(0);
+          break;
+      case 5375:  
+          dash_5375.display_(0);
+          pump3.Trigger(false);
+          delay(1000);
+          current_state = 5370;
+          enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
+          break;
+
+          
+    }
 
   }
 

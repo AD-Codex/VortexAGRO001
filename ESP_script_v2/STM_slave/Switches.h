@@ -14,9 +14,12 @@
 //unit5, PA4  , PA5 , PA0 , PA1 
 //unit6, PB0  , PB1 , PA6 , PA7
 
-// switch normslly close, when swith trigger pin read HIGH
+// switch normslly close ( pin read 0), when swith trigger (pin read HIGH)
 // A - close switch
 // B - open switchh
+
+// sending 2pair of 12bit data
+// switch close -1, switch open -0
 
 #define SWITCH_SET1_A_PIN PB14
 #define SWITCH_SET1_B_PIN PB15
@@ -37,11 +40,9 @@
 #define SWITCH_SET6_B_PIN PB1
 
 
-
 struct Switch {
   const uint8_t PIN;
   bool pressed;
- 
   
 };
 
@@ -94,6 +95,15 @@ void Switch_update() {
   checkSwitch_pair(switch_5A, switch_5B, "switch 5A", "switch 5B");
   checkSwitch_pair(switch_6A, switch_6B, "switch 6A", "switch 6B");
 
+}
+
+void Switch_status() {
+  Switch_update();
+
+  String switch_status = String(switch_1A.pressed) + String(switch_1B.pressed) + String(switch_2A.pressed) + String(switch_2B.pressed) + String(switch_3A.pressed) + String(switch_3B.pressed) + String(switch_4A.pressed) + String(switch_4B.pressed) + String(switch_5A.pressed) + String(switch_5B.pressed) + String(switch_6A.pressed) + String(switch_6B.pressed);
+
+  Serial.println(switch_status);
+  Serial2.println(switch_status + "\n");
 }
 
 
