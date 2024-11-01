@@ -3,7 +3,7 @@
 // STM-1 valve check, sending-1002
 // STM-2 valve check, sending-2002
 // receving 2 pair of 12 bit data
-// 2 pairs 1bit high - valve close, 2bit high - valve open
+// 2 pairs 1st bit high - valve close, 2nd bit high - valve open
 //         1,2 bit high - valve not connected or error in limit switch
 //         1,2 bit low - valve not close and open
 // time limit 3000 mils
@@ -87,8 +87,9 @@ void Switch_status() {
         // Serial.println(receivedMessage);
         if ( receivedMessage.length() == 12) {
           Serial.println(" STM_2 valve status ...");
-          valve_stats( receivedMessage);
-          break;
+          if (valve_stats( receivedMessage)){
+            break;
+          }
         }
         receivedMessage = "";
       }

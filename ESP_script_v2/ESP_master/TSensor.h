@@ -1,4 +1,7 @@
+
 // using ADC1, ADC2 may used for wifi setups
+// boiler temperature - TSensor1
+// milk temperature   - Tsensor2
 
 #define TMP_BOIL_PIN 34
 #define TMP_MILK1_PIN 35

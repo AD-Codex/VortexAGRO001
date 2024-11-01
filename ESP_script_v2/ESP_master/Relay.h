@@ -1,4 +1,6 @@
-
+// boiler pump - pump1
+// cooler pump - pump2
+// tank pump   - pump3
 
 #define BOIL_PMP_RELAY_PIN 19
 #define COOL_PMP_RELAY_PIN 18

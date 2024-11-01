@@ -81,6 +81,7 @@ void stm32_check() {
 
 void serialCom_check() {
   Serial.println("checking serial connecting -----------");
+  dash_0005.display_(0);
 
   while (true) {
     stm32_check();
@@ -90,6 +91,7 @@ void serialCom_check() {
     }
     else {
       Serial.println("serial connection checking faile. Recheck in 5s");
+      dash_0010.display_(0);
       delay(5000);
     }
 

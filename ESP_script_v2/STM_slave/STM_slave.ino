@@ -46,92 +46,88 @@ void loop() {
   else if ( Msg == "1002") {
     Switch_status();
   }
-  else if ( Msg == "1011") {
+
+  else if ( Msg == "1010") {
     valve1Close();
   }
-  else if ( Msg == "1010") {
+  else if ( Msg == "1011") {
     valve1Open();
   }
-  else if ( Msg == "1021") {
+  else if ( Msg == "1013") {
+    valve1Clkwise();
+  }
+  else if ( Msg == "1014") {
+    valve1Aclkwise();
+  }
+
+  else if ( Msg == "1020") {
     valve2Close();
   }
-  else if ( Msg == "1020") {
+  else if ( Msg == "1021") {
     valve2Open();
   }
+  else if ( Msg == "1023") {
+    valve2Clkwise();
+  }
+  else if ( Msg == "1024") {
+    valve2Aclkwise();
+  }
+
+  else if ( Msg == "1030") {
+    valve3Close();
+  }
+  else if ( Msg == "1031") {
+    valve3Open();
+  }
+  else if ( Msg == "1033") {
+    valve3Clkwise();
+  }
+  else if ( Msg == "1034") {
+    valve3Aclkwise();
+  }
+
+  else if ( Msg == "1040") {
+    valve4Close();
+  }
+  else if ( Msg == "1041") {
+    valve4Open();
+  }
+  else if ( Msg == "1043") {
+    valve4Clkwise();
+  }
+  else if ( Msg == "1044") {
+    valve4Aclkwise();
+  }
+
+  else if ( Msg == "1050") {
+    valve5Close();
+  }
+  else if ( Msg == "1051") {
+    valve5Open();
+  }
+  else if ( Msg == "1053") {
+    valve5Clkwise();
+  }
+  else if ( Msg == "1054") {
+    valve5Aclkwise();
+  }
+
+  else if ( Msg == "1060") {
+    valve6Close();
+  }
+  else if ( Msg == "1061") {
+    valve6Open();
+  }
+  else if ( Msg == "1063") {
+    valve6Clkwise();
+  }
+  else if ( Msg == "1064") {
+    valve6Aclkwise();
+  }
+  
 
   Msg = "";
 
-  
-
-  // valve2Open();
-
-  // valve2Close();
-  
-  // // Switch_update();
-
-  // delay(1000);
-  // Serial.println(" ");
-
-
-  // if (Serial2.available()) {
-  //   char number = Serial2.read();
-  //   Serial.println(number);
-
-  //   if (number == 'a') {
-  //     Serial.println("reading a");
-  //     valve1Close();
-  //   }
-  //   else if (number == 'b') {
-  //     Serial.println("reading b");
-  //     valve1Open();
-  //   }
-
-  //   if (number == 'c') {
-  //     Serial.println("reading c");
-  //     // valve2Close();
-  //   }
-  //   else if (number == 'd') {
-  //     Serial.println("reading d");
-  //     // valve2Open();
-  //   }
-
-  //   if (number == 'e') {
-  //     Serial.println("reading e");
-  //     // valve3Close();
-  //   }
-  //   else if (number == 'f') {
-  //     Serial.println("reading f");
-  //     // valve3Open();
-  //   }
-
-  //   if (number == 'g') {
-  //     Serial.println("reading g");
-  //     // valve4Close();
-  //   }
-  //   else if (number == 'h') {
-  //     Serial.println("reading h");
-  //     // valve4Open();
-  //   }
-
-  //   if (number == 'i') {
-  //     Serial.println("reading i");
-  //     // valve5Close();
-  //   }
-  //   else if (number == 'j') {
-  //     Serial.println("reading j");
-  //     // valve5Open();
-  //   }
-
-  //   if (number == 'k') {
-  //     Serial.println("reading k");
-  //     // valve6Close();
-  //   }
-  //   else if (number == 'l') {
-  //     Serial.println("reading l");
-  //     // valve6Open();
-  //   }
-
-  // }
 
   
 

@@ -26,6 +26,7 @@ void valve_Close( Switch &switch_A, Motor &motorSet_, const char* valve, String 
   time_start = millis();
   while (true) {
     if ( (millis() - time_start) > 5000) {
+      motorSet_.motorClose();
       Serial.println("valve close time exceed..");
       Serial2.print( "9999\n");
       break;
@@ -56,6 +57,7 @@ void valve_Open( Switch &switch_B, Motor &motorSet_, const char* valve, String i
   time_start = millis();
   while (true) {
     if ( (millis() - time_start) > 5000) {
+      motorSet_.motorClose();
       Serial.println("valve open time exceed..");
       Serial2.print( "9999\n");
       break;
@@ -77,6 +79,22 @@ void valve_Open( Switch &switch_B, Motor &motorSet_, const char* valve, String i
 }
 
 
+void valve_Clkwise( Motor &motorSet_, const char* valve, String index) {
+  Serial.println("turn clkwise valve " + String(valve));
+  motorSet_.motorRunClk();
+  delay(100);
+  motorSet_.motorClose();
+
+}
+
+void valve_Aclkwise( Motor &motorSet_, const char* valve, String index) {
+  Serial.println("turn Aclkwise valve " + String(valve));
+  motorSet_.motorRunAClk();
+  delay(100);
+  motorSet_.motorClose();
+
+}
+
 
 
 
@@ -87,6 +105,12 @@ void valve1Close() {
 void valve1Open() {
   valve_Open( switch_1B, motorSet1, "valve 1", "1011");
 }
+void valve1Clkwise() {
+  valve_Clkwise( motorSet1, "valve 1", "1013");
+}
+void valve1Aclkwise() {
+  valve_Aclkwise( motorSet1, "valve 1", "1014");
+}
 
 // valve 2 ------------------------------------------
 void valve2Close() {
@@ -94,6 +118,12 @@ void valve2Close() {
 }
 void valve2Open() {
   valve_Open( switch_2B, motorSet2, "valve 2", "1021");
+}
+void valve2Clkwise() {
+  valve_Clkwise( motorSet2, "valve 2", "1023");
+}
+void valve2Aclkwise() {
+  valve_Aclkwise( motorSet2, "valve 2", "1024");
 }
 
 // valve 3 ------------------------------------------
@@ -103,6 +133,12 @@ void valve3Close() {
 void valve3Open() {
   valve_Open( switch_3B, motorSet3, "valve 3", "1031");
 }
+void valve3Clkwise() {
+  valve_Clkwise( motorSet3, "valve 3", "1033");
+}
+void valve3Aclkwise() {
+  valve_Aclkwise( motorSet3, "valve 3", "1034");
+}
 
 // valve 4 ------------------------------------------
 void valve4Close() {
@@ -110,6 +146,12 @@ void valve4Close() {
 }
 void valve4Open() {
   valve_Open( switch_4B, motorSet4, "valve 4", "1041");
+}
+void valve4Clkwise() {
+  valve_Clkwise( motorSet4, "valve 4", "1043");
+}
+void valve4Aclkwise() {
+  valve_Aclkwise( motorSet4, "valve 4", "1044");
 }
 
 // valve 5 ------------------------------------------
@@ -119,6 +161,12 @@ void valve5Close() {
 void valve5Open() {
   valve_Open( switch_5B, motorSet5, "valve 5", "1051");
 }
+void valve5Clkwise() {
+  valve_Clkwise( motorSet5, "valve 5", "1053");
+}
+void valve5Aclkwise() {
+  valve_Aclkwise( motorSet5, "valve 5", "1054");
+}
 
 // valve 6 ------------------------------------------
 void valve6Close() {
@@ -126,4 +174,10 @@ void valve6Close() {
 }
 void valve6Open() {
   valve_Open( switch_6B, motorSet6, "valve 6", "1061");
+}
+void valve6Clkwise() {
+  valve_Clkwise( motorSet6, "valve 6", "1063");
+}
+void valve6Aclkwise() {
+  valve_Aclkwise( motorSet6, "valve 6", "1064");
 }

@@ -24,10 +24,11 @@ void setup() {
   // init user buttons
   init_HMI();
   dash_0000.display_(0);
+  delay(1000);
 
 
   // init serial connection
-  init_serial();
+  // init_serial();
   // serialCom_check();
 
   
@@ -45,7 +46,7 @@ void setup() {
 
   // // init valves
   // Switch_status();
-  // valveReSet();
+
 
 
   // delay(1000);

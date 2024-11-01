@@ -41,6 +41,11 @@ struct Dashboard {
 // 0000 --------------------------------
 Dashboard dash_0000 = { "", " Vortex Labs", " Peoject 001", ""};
 
+Dashboard dash_0005 = {"", " Initilizing", " Com system", ""};
+Dashboard dash_0010 = {" Warning :", " Com fail ...", " recheck in", " after 5s"};
+Dashboard dash_0015 = {" Warning :", " Fail to open", " Valve No", " "};
+Dashboard dash_0020 = {" Warning :", " Fail to close", " Valve No", " "};
+Dashboard dash_0025 = {"", " Initilizing", " Valve system", ""};
 
 // 1000 --------------------------------
 Dashboard dash_1000 = { ">1.Start", " 2.Clean Process", " 3.Milk Process", " 4.Settings"};
@@ -49,8 +54,10 @@ Dashboard dash_1000 = { ">1.Start", " 2.Clean Process", " 3.Milk Process", " 4.S
 // 2000 --------------------------------
 Dashboard dash_2000 = { " 1.Start", ">2.Clean Process", " 3.Milk Process", " 4.Settings"};
 
-Dashboard dash_2010 = { " Process", " ", " Water Heating to", "Rated Water temp"};
-Dashboard dash_2020 = { " Process", " ", " Water Temperature", "Keaping at 90 C"};
+Dashboard dash_2001 = { " Process : ", " Starting clean", " Process", ""};
+Dashboard dash_2005 = { " Process : ", " Add water to", " tank", " EN-continue"};
+Dashboard dash_2010 = { " Process :", " ", " Water Heating to", "Rated Water temp"};
+Dashboard dash_2020 = { " Process :", " ", " Water Temperature", "Keaping at 90 C"};
 Dashboard dash_2030 = { " Process", " ", " Water Heating", " done"};
 Dashboard dash_2040 = { " Process", " Cleaning process", " Time Counting", " "};
 Dashboard dash_2050 = { " Process", " ", " Milk heating to", " Rated Milk temp"};
@@ -119,61 +126,46 @@ Dashboard dash_4901 = { " Setting:", " ", " Save Change", " "};
 // 5000 ---------------------------------
 Dashboard dash_5000 = { " 2.Clean Process", " 3.Milk Process", " 4.Settings", ">5.Testing"};
 
+
 Dashboard dash_5001 = { ">01.Temp sens", " 02.Valves", " 03.Pumps", " "};
-Dashboard dash_5010 = { ">01.T1 read", " 02.T2 read", " 03.T3 read", " "};
+
+Dashboard dash_5010 = { ">01.T1 read", " 02.T2 read", " 03.T3 read", "" };
 Dashboard dash_5015 = { " Testing :", " T1", " Temp read 'C", " 90"};
 Dashboard dash_5020 = { " 01.T1 read", ">02.T2 read", " 03.T3 read", " "};
 Dashboard dash_5025 = { " Testing :", " T2", " Temp read 'C", " 90"};
 Dashboard dash_5030 = { " 01.T1 read", " 02.T2 read", ">03.T3 read", " "};
 Dashboard dash_5035 = { " Testing :", " T3", " Temp read 'C", " 90"};
 
+
 Dashboard dash_5002 = { " 01.Temp sens", ">02.Valves", " 03.Pumps", " "};
-Dashboard dash_5040 = { ">04.Val 1 open", " 05.Val 1 close", " 06.Val 2 open", " 07.Val 2 close"};
-Dashboard dash_5045 = { " Testing :", " Opening Valve", " 01", " "};
-Dashboard dash_5050 = { " 04.Val 1 open", ">05.Val 1 close", " 06.Val 2 open", " 07.Val 2 close"};
-Dashboard dash_5055 = { " Testing :", " Closing Valve", " 01", " "};
-Dashboard dash_5060 = { " 05.Val 1 close", ">06.Val 2 open", " 07.Val 2 close", " 08.Val 3 open"};
-Dashboard dash_5065 = { " Testing :", " Opening Valve", " 02", " "};
-Dashboard dash_5070 = { " 06.Val 2 open", ">07.Val 2 close", " 08.Val 3 open", " 09.Val 3 close"};
-Dashboard dash_5075 = { " Testing :", " Closing Valve", " 02", " "};
-Dashboard dash_5080 = { " 07.Val 2 close", ">08.Val 3 open", " 09.Val 3 close", " 10.Val 4 open"};
-Dashboard dash_5085 = { " Testing :", " Opening Valve", " 03", " "};
-Dashboard dash_5090 = { " 08.Val 3 open", ">09.Val 3 close", " 10.Val 4 open", " 11.Val 4 close"};
-Dashboard dash_5095 = { " Testing :", " Closing Valve", " 03", " "};
-Dashboard dash_5100 = { " 09.Val 3 close", ">10.Val 4 open", " 11.Val 4 close", " 12.Val 5 open"};
-Dashboard dash_5105 = { " Testing :", " Opening Valve", " 04", " "};
-Dashboard dash_5110 = { " 10.Val 4 open", ">11.Val 4 close", " 12.Val 5 open", " 13.Val 5 close"};
-Dashboard dash_5115 = { " Testing :", " Closing Valve", " 04", " "};
-Dashboard dash_5120 = { " 11.Val 4 close", ">12.Val 5 open", " 13.Val 5 close", " 14.Val 6 open"};
-Dashboard dash_5125 = { " Testing :", " Opening Valve", " 05", " "};
-Dashboard dash_5130 = { " 12.Val 5 open", ">13.Val 5 close", " 14.Val 6 open", " 15.Val 6 close"};
-Dashboard dash_5135 = { " Testing :", " Closing Valve", " 05", " "};
-Dashboard dash_5140 = { " 13.Val 5 close", ">14.Val 6 open", " 15.Val 6 close", " 16.Val 7 open"};
-Dashboard dash_5145 = { " Testing :", " Opening Valve", " 06", " "};
-Dashboard dash_5150 = { " 14.Val 6 open", ">15.Val 6 close", " 16.Val 7 open", " 17.Val 7 close"};
-Dashboard dash_5155 = { " Testing :", " Closing Valve", " 06", " "};
-Dashboard dash_5160 = { " 15.Val 6 close", ">16.Val 7 open", " 17.Val 7 close", " 18.Val 8 open"};
-Dashboard dash_5165 = { " Testing :", " Opening Valve", " 07", " "};
-Dashboard dash_5170 = { " 16.Val 7 open", ">17.Val 7 close", " 18.Val 8 open", " 19.Val 8 close"};
-Dashboard dash_5175 = { " Testing :", " Closing Valve", " 07", " "};
-Dashboard dash_5180 = { " 17.Val 7 close", ">18.Val 8 open", " 19.Val 8 close", " 20.Val 9 open"};
-Dashboard dash_5185 = { " Testing :", " Opening Valve", " 08", " "};
-Dashboard dash_5190 = { " 18.Val 8 open", ">19.Val 8 close", " 20.Val 9 open", " 21.Val 9 close"};
-Dashboard dash_5195 = { " Testing :", " Closing Valve", " 08", " "};
-Dashboard dash_5200 = { " 19.Val 8 close", ">20.Val 9 open", " 21.Val 9 close", " 22.Val 10 open"};
-Dashboard dash_5205 = { " Testing :", " Opening Valve", " 09", " "};
-Dashboard dash_5210 = { " 20.Val 9 open", ">21.Val 9 close", " 22.Val 10 open", " 23.Val 10 close"};
-Dashboard dash_5215 = { " Testing :", " Closing Valve", " 09", " "};
-Dashboard dash_5220 = { " 21.Val 9 close", ">22.Val 10 open", " 23.Val 10 close", " 24.Val 11 open"};
-Dashboard dash_5225 = { " Testing :", " Opening Valve", " 10", " "};
-Dashboard dash_5230 = { " 22.Val 10 open", ">23.Val 10 close", " 24.Val 11 open", " 25.Val 11 close"};
-Dashboard dash_5235 = { " Testing :", " Closing Valve", " 10", " "};
-Dashboard dash_5240 = { " 23.Val 10 close", ">24.Val 11 open", " 25.Val 11 close", " "};
-Dashboard dash_5245 = { " Testing :", " Opening Valve", " 11", " "};
-Dashboard dash_5250 = { " 24.Val 11 open", ">25.Val 11 close", " ", " "};
-Dashboard dash_5255 = { " Testing :", " Closing Valve", " 11", " "};
+
+Dashboard dash_5201 = { ">01.Valve 1", " 02.Valve 2", " 03.Valve 3", " 04.Valve 4"};
+Dashboard dash_5202 = { " 01.Valve 1", ">02.Valve 2", " 03.Valve 3", " 04.Valve 4"};
+Dashboard dash_5203 = { " 01.Valve 1", " 02.Valve 2", ">03.Valve 3", " 04.Valve 4"};
+Dashboard dash_5204 = { " 01.Valve 1", " 02.Valve 2", " 03.Valve 3", ">04.Valve 4"};
+Dashboard dash_5205 = { ">05.Valve 5", " 06.Valve 6", " 07.Valve 7", " 08.Valve 8"};
+Dashboard dash_5206 = { " 05.Valve 5", ">06.Valve 6", " 07.Valve 7", " 08.Valve 8"};
+Dashboard dash_5207 = { " 05.Valve 5", " 06.Valve 6", ">07.Valve 7", " 08.Valve 8"};
+Dashboard dash_5208 = { " 05.Valve 5", " 06.Valve 6", " 07.Valve 7", ">08.Valve 8"};
+Dashboard dash_5209 = { ">09.Valve 9", " 10.Valve 10", " 11.Valve 11", " 12.Valve 12"};
+Dashboard dash_5210 = { " 09.Valve 9", ">10.Valve 10", " 11.Valve 11", " 12.Valve 12"};
+Dashboard dash_5211 = { " 09.Valve 9", " 10.Valve 10", ">11.Valve 11", " 12.Valve 12"};
+Dashboard dash_5212 = { " 09.Valve 9", " 10.Valve 10", " 11.Valve 11", ">12.Valve 12"};
+
+Dashboard dash_5251 = { ">01.Open valve", " 02.Close valve", " 03.Clk turn", " 04.Aclk turn"};
+Dashboard dash_5252 = { " 01.Open valve", ">02.Close valve", " 03.Clk turn", " 04.Aclk turn"};
+Dashboard dash_5253 = { " 01.Open valve", " 02.Close valve", ">03.Clk turn", " 04.Aclk turn"};
+Dashboard dash_5254 = { " 01.Open valve", " 02.Close valve", " 03.Clk turn", ">04.Aclk turn"};
+
+Dashboard dash_5260 = { " Testing :", " ", " Opening Valve", " "};
+Dashboard dash_5261 = { " Testing :", " ", " Closing Valve", " "};
+
+Dashboard dash_5270 = { " Warning :", " ", " Valve not ", " Opening"};
+Dashboard dash_5271 = { " Warning :", " ", " Valve not ", " Closing"};
+
 
 Dashboard dash_5003 = { " 01.Temp sens"  , " 02.Valves", ">03.Pumps", " "};
+
 Dashboard dash_5320 = { ">01.Pmp 1 open" , " 02.Pmp 1 close", " 03.Pmp 2 open", " 04.Pmp 2 close"};
 Dashboard dash_5325 = { " Testing :", " Opening Pump", " 01", " "};
 Dashboard dash_5330 = { " 01.Pmp 1 open" , ">02.Pmp 1 close", " 03.Pmp 2 open", " 04.Pmp 2 close"};
