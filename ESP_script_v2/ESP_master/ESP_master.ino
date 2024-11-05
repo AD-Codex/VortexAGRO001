@@ -4,9 +4,10 @@
 # include "Relay.h"
 # include "TSensor.h"
 # include "Valves.h"
-# include "Dashboard.h"
 # include "Switches.h"
 # include "Serial.h"
+# include "Process.h"
+# include "Dashboard.h"
 
 
 char number  = ' ';
@@ -28,7 +29,7 @@ void setup() {
 
 
   // init serial connection
-  // init_serial();
+  init_serial();
   // serialCom_check();
 
   

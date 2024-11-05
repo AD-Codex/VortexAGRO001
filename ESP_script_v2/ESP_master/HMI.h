@@ -98,6 +98,13 @@ void init_HMI() {
   
 }
 
+void reset_buttons(){
+  enter_BN.pressed = false;
+  back_BN.pressed = false;
+  up_BN.pressed = false;
+  down_BN.pressed = false;
+}
+
 
 // test cases for buttons ----------------------------------------------------------
 void button_Test() {

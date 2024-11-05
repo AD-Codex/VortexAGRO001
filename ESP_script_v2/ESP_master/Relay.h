@@ -4,13 +4,16 @@
 
 #define BOIL_PMP_RELAY_PIN 19
 #define COOL_PMP_RELAY_PIN 18
-#define TANK_PMP_RELAY_PIN 5
+#define TANK_MIXER_REAY_PIN 5
+#define HOMOGENIZER_ON_PIN 4
+#define HOMOGENIZER_OFF_PIN 2
 
 
 
 struct Relay {
   const uint8_t PIN;
   bool state;
+  String name;
 
   void init() {
     pinMode(PIN, OUTPUT);
@@ -22,29 +25,44 @@ struct Relay {
       digitalWrite( PIN, open);
       state = open;
     }
-    Serial.print(PIN );
-    Serial.print(" relay state : ");
+    Serial.print(name );
+    Serial.print(" state : ");
     Serial.println(open);
+  }
+
+  void Click() {
+    digitalWrite( PIN, HIGH);
+    delay(1000);
+    digitalWrite( PIN, LOW);
+    Serial.print(name );
+    Serial.println(" Clicked");
+
   }
   
 };
 
 
 // define relays -----------------------------------------------------------
-Relay pump1 = {BOIL_PMP_RELAY_PIN, false};
-Relay pump2 = {COOL_PMP_RELAY_PIN, false};
-Relay pump3 = {TANK_PMP_RELAY_PIN, false};
+Relay boilPump = {BOIL_PMP_RELAY_PIN, false, "boilPump"};
+Relay coolPump = {COOL_PMP_RELAY_PIN, false, "coolPump"};
+Relay mixer = {TANK_MIXER_REAY_PIN, false, "mixer"};
+Relay homogenizerOn = {HOMOGENIZER_ON_PIN, false, "homogenizerOn"};
+Relay homogenizerOff = {HOMOGENIZER_OFF_PIN, false, "homogenizerOff"};
 
 
 // init relay pins ---------------------------------------------------------
 void init_Relay() {
-  pump1.init();
-  pump2.init();
-  pump3.init();
+  boilPump.init();
+  coolPump.init();
+  mixer.init();
+  homogenizerOn.init();
+  homogenizerOff.init();
 
-  pump1.Trigger(false);
-  pump2.Trigger(false);
-  pump3.Trigger(false);
+  boilPump.Trigger(false);
+  coolPump.Trigger(false);
+  mixer.Trigger(false);
+  homogenizerOn.Trigger(false);
+  homogenizerOff.Trigger(false);
   
   
 }

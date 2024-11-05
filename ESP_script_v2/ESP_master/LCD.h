@@ -46,6 +46,7 @@ Dashboard dash_0010 = {" Warning :", " Com fail ...", " recheck in", " after 5s"
 Dashboard dash_0015 = {" Warning :", " Fail to open", " Valve No", " "};
 Dashboard dash_0020 = {" Warning :", " Fail to close", " Valve No", " "};
 Dashboard dash_0025 = {"", " Initilizing", " Valve system", ""};
+Dashboard dash_0030 = {"  Syatem Halt", " EN - Continue"," DN - skip", " BK - Stop"};
 
 // 1000 --------------------------------
 Dashboard dash_1000 = { ">1.Start", " 2.Clean Process", " 3.Milk Process", " 4.Settings"};
@@ -55,13 +56,13 @@ Dashboard dash_1000 = { ">1.Start", " 2.Clean Process", " 3.Milk Process", " 4.S
 Dashboard dash_2000 = { " 1.Start", ">2.Clean Process", " 3.Milk Process", " 4.Settings"};
 
 Dashboard dash_2001 = { " Process : ", " Starting clean", " Process", ""};
-Dashboard dash_2005 = { " Process : ", " Add water to", " tank", " EN-continue"};
-Dashboard dash_2010 = { " Process :", " ", " Water Heating to", "Rated Water temp"};
+Dashboard dash_2005 = { " Process : ", " Add water ", " EN - Continue", " BK - Stop"};
+Dashboard dash_2010 = { " Process :", " ", " Water Heating to", " Rated Water temp"};
 Dashboard dash_2020 = { " Process :", " ", " Water Temperature", "Keaping at 90 C"};
 Dashboard dash_2030 = { " Process", " ", " Water Heating", " done"};
 Dashboard dash_2040 = { " Process", " Cleaning process", " Time Counting", " "};
 Dashboard dash_2050 = { " Process", " ", " Milk heating to", " Rated Milk temp"};
-Dashboard dash_2060 = { " Process", " Homogi Clean", " Time counting", " "};
+Dashboard dash_2060 = { " Process", " Homogi Clean", " Starting", " "};
 Dashboard dash_2070 = { " Process", " ", " Homogenizer", " Cleaning done"};
 Dashboard dash_2080 = { " Process", " ", " Draining water", " "};
 Dashboard dash_2090 = { " Process", " ", " Tank Cleaning", " Process Done"};

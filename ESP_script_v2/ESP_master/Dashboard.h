@@ -5,8 +5,11 @@
 
 int state_list[][5] = {
   {1000, 9999,    0,    0, 2000},
-  {2000, 9999,    0, 1000, 3000},
+  {2000, 2001,    0, 1000, 3000},
   {3000, 9999,    0, 2000, 4000},
+
+  // 2000 ----------------------
+  {2001,    0, 2000,    0,    0},
 
 
   // 4000 -----------------------
@@ -71,7 +74,7 @@ int state_list[][5] = {
   {5260,    0, 5251,    0,    0},
   {5261,    0, 5252,    0,    0},
   {5262,    0,    0,    0,    0},
-  {5263,    0,    0,    0,    0},
+  {5263, 5263,    0,    0,    0},
   {5270,    0, 5251,    0,    0},
   {5271,    0, 5252,    0,    0},
 
@@ -104,8 +107,12 @@ void dashboard(int state){
   int valveOpen_state = 0;
   int number = 1000;
 
+  Serial.println(state);
+
   if ( state == old_state) {
-    
+    if ( state == 5263) {
+      current_state = 5254;
+    }
   }
   else {
     switch (state) {
@@ -117,6 +124,11 @@ void dashboard(int state){
   // Clean process -------------------------
       case 2000:  
           dash_2000.display_(0);
+          break;
+
+      case 2001:  
+          Clean_Process();
+          current_state = 2000;
           break;
 
       case 2010:  
@@ -371,7 +383,7 @@ void dashboard(int state){
           break;
       case 5325:  
           dash_5325.display_(0);
-          pump1.Trigger(true);
+          boilPump.Trigger(true);
           delay(1000);
           current_state = 5320;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
@@ -382,7 +394,7 @@ void dashboard(int state){
           break;
       case 5335:  
           dash_5335.display_(0);
-          pump1.Trigger(false);
+          boilPump.Trigger(false);
           delay(1000);
           current_state = 5330;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
@@ -393,7 +405,7 @@ void dashboard(int state){
           break;
       case 5345:  
           dash_5345.display_(0);
-          pump2.Trigger(true);
+          coolPump.Trigger(true);
           delay(1000);
           current_state = 5340;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
@@ -404,7 +416,7 @@ void dashboard(int state){
           break;
       case 5355:  
           dash_5355.display_(0);
-          pump2.Trigger(false);
+          coolPump.Trigger(false);
           delay(1000);
           current_state = 5350;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
@@ -415,7 +427,7 @@ void dashboard(int state){
           break;
       case 5365:  
           dash_5365.display_(0);
-          pump3.Trigger(true);
+          mixer.Trigger(true);
           delay(1000);
           current_state = 5360;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
@@ -426,7 +438,7 @@ void dashboard(int state){
           break;
       case 5375:  
           dash_5375.display_(0);
-          pump3.Trigger(false);
+          mixer.Trigger(false);
           delay(1000);
           current_state = 5370;
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;

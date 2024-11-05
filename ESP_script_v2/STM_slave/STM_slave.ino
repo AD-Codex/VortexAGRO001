@@ -28,7 +28,7 @@ void loop() {
   if (Serial2.available()) {
 
     char receivedChar = Serial2.read();
-    // Serial.println(receivedChar);
+    Serial.println(receivedChar);
       if ( receivedChar == '\n') {
         Msg = receivedMessage;
         Serial.println(receivedMessage);
