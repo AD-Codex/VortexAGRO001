@@ -4,6 +4,8 @@
 # include "Motors.h"
 # include "Valves.h"
 
+String Msg;
+String receivedMessage;
 
 void setup() {
   Serial.begin(115200);
@@ -11,83 +13,122 @@ void setup() {
   
   // initialize serial com.
   init_serialBus();
-  // // initialize limit switches
-  // init_Switch();
-  // // initialize motor ENs
-  // init_motors();
+  // initialize limit switches
+  init_Switch();
+  // initialize motor ENs
+  init_motors();
 
-  // // Update limit switch states
-  // Switch_update();
 
 }
 
 
 void loop() {
 
-  serialBus_check();
+
+  if (Serial2.available()) {
+
+    char receivedChar = Serial2.read();
+    Serial.println(receivedChar);
+      if ( receivedChar == '\n') {
+        Msg = receivedMessage;
+        Serial.println(receivedMessage);
+        receivedMessage = "";
+      }
+      else {
+        receivedMessage =  receivedMessage + receivedChar;
+      }
+
+  }
 
   
 
-  // if (Serial2.available()) {
-  //   char number = Serial2.read();
-  //   // Serial.println(number);
+  if ( Msg == "2001") {
+    serialBus_check(Msg);
+  }
+  else if ( Msg == "2002") {
+    Switch_status();
+  }
 
-  //   if (number == 'm') {
-  //     Serial.println("reading m");
-  //     valve1Close();
-  //   }
-  //   else if (number == 'n') {
-  //     Serial.println("reading n");
-  //     valve1Open();
-  //   }
+  else if ( Msg == "2010") {
+    valve1Close();
+  }
+  else if ( Msg == "2011") {
+    valve1Open();
+  }
+  else if ( Msg == "2013") {
+    valve1Clkwise();
+  }
+  else if ( Msg == "2014") {
+    valve1Aclkwise();
+  }
 
-  //   if (number == 'o') {
-  //     Serial.println("reading o");
-  //     valve2Close();
-  //   }
-  //   else if (number == 'p') {
-  //     Serial.println("reading p");
-  //     valve2Open();
-  //   }
+  else if ( Msg == "2020") {
+    valve2Close();
+  }
+  else if ( Msg == "2021") {
+    valve2Open();
+  }
+  else if ( Msg == "2023") {
+    valve2Clkwise();
+  }
+  else if ( Msg == "2024") {
+    valve2Aclkwise();
+  }
 
-  //   if (number == 'q') {
-  //     Serial.println("reading q");
-  //     valve3Close();
-  //   }
-  //   else if (number == 'r') {
-  //     Serial.println("reading r");
-  //     valve3Open();
-  //   }
+  else if ( Msg == "2030") {
+    valve3Close();
+  }
+  else if ( Msg == "2031") {
+    valve3Open();
+  }
+  else if ( Msg == "2033") {
+    valve3Clkwise();
+  }
+  else if ( Msg == "2034") {
+    valve3Aclkwise();
+  }
 
-  //   if (number == 's') {
-  //     Serial.println("reading s");
-  //     valve4Close();
-  //   }
-  //   else if (number == 't') {
-  //     Serial.println("reading t");
-  //     valve4Open();
-  //   }
+  else if ( Msg == "2040") {
+    valve4Close();
+  }
+  else if ( Msg == "2041") {
+    valve4Open();
+  }
+  else if ( Msg == "2043") {
+    valve4Clkwise();
+  }
+  else if ( Msg == "2044") {
+    valve4Aclkwise();
+  }
 
-  //   if (number == 'u') {
-  //     Serial.println("reading u");
-  //     valve5Close();
-  //   }
-  //   else if (number == 'v') {
-  //     Serial.println("reading v");
-  //     valve5Open();
-  //   }
+  else if ( Msg == "2050") {
+    valve5Close();
+  }
+  else if ( Msg == "2051") {
+    valve5Open();
+  }
+  else if ( Msg == "2053") {
+    valve5Clkwise();
+  }
+  else if ( Msg == "2054") {
+    valve5Aclkwise();
+  }
 
-  //   if (number == 'w') {
-  //     Serial.println("reading w");
-  //     valve6Close();
-  //   }
-  //   else if (number == 'x') {
-  //     Serial.println("reading x");
-  //     valve6Open();
-  //   }
+  else if ( Msg == "2060") {
+    valve6Close();
+  }
+  else if ( Msg == "2061") {
+    valve6Open();
+  }
+  else if ( Msg == "2063") {
+    valve6Clkwise();
+  }
+  else if ( Msg == "2064") {
+    valve6Aclkwise();
+  }
+  
 
-  // }
-
+  Msg = "";
   
 
 }

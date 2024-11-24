@@ -4,13 +4,17 @@
 // 0 - invalid
 
 int state_list[][5] = {
-  {1000, 9999,    0,    0, 2000},
-  {2000, 2001,    0, 1000, 3000},
-  {3000, 9999,    0, 2000, 4000},
+  // 1000 ---------------------
+  {1000, 1001,    0,    0, 2000},  
+  {1001,    0, 1000,    0,    0}, 
 
   // 2000 ----------------------
+  {2000, 2001,    0, 1000, 3000},
   {2001,    0, 2000,    0,    0},
 
+  // 3000 ----------------------
+  {3000, 3001,    0, 2000, 4000},
+  {3001,    0, 3000,    0,    0},
 
   // 4000 -----------------------
   {4000, 4010,    0, 3000, 5000},
@@ -18,28 +22,30 @@ int state_list[][5] = {
   {4010, 4110, 4000,    0, 4020},
 
   {4110, 4111, 4010,    0, 4120},
-  {4111, 4901, 4110,    2,    8},
+  {4111, 4901, 4110,    8,    2},
   {4120, 4121, 4010, 4110, 4130},
-  {4121, 4901, 4120,    2,    8},
+  {4121, 4901, 4120,    8,    2},
   {4130, 4131, 4010, 4120, 4140},
-  {4131, 4901, 4130,    2,    8},
+  {4131, 4901, 4130,    8,    2},
   {4140, 4141, 4010, 4130,    0},
-  {4141, 4901, 4140,    2,    8},
+  {4141, 4901, 4140,    8,    2},
 
   {4020, 4210, 4000, 4010,    0},
 
   {4210, 4211, 4020,    0, 4220},
-  {4211, 4901, 4210,    2,    8},
+  {4211, 4901, 4210,    8,    2},
   {4220, 4221, 4020, 4210, 4230},
-  {4221, 4901, 4220,    2,    8},
+  {4221, 4901, 4220,    8,    2},
   {4230, 4231, 4020, 4220, 4240},
-  {4231, 4901, 4230,    2,    8},
+  {4231, 4901, 4230,    8,    2},
   {4240, 4241, 4020, 4230,    0},
-  {4241, 4901, 4240,    2,    8},
+  {4241, 4901, 4240,    8,    2},
+
+  {4901, 4010, 4010,    0,    0},
 
   
   // 5000 -----------------------
-  {5000, 5001,    0, 4000,    0},
+  {5000, 5001,    0, 4000, 6000},
 
   {5001, 5010, 5000,    0, 5002},
 
@@ -48,7 +54,7 @@ int state_list[][5] = {
   {5020, 5025, 5001, 5010, 5030},
   {5025,    0, 5020,    0,    0},
   {5030, 5035, 5001, 5020,    0},
-  {5035,    0, 5030,    2,    8},
+  {5035,    0, 5030,    0,    0},
 
 
   {5002, 5201, 5000, 5001, 5003},
@@ -73,7 +79,7 @@ int state_list[][5] = {
 
   {5260,    0, 5251,    0,    0},
   {5261,    0, 5252,    0,    0},
-  {5262,    0,    0,    0,    0},
+  {5262, 5262,    0,    0,    0},
   {5263, 5263,    0,    0,    0},
   {5270,    0, 5251,    0,    0},
   {5271,    0, 5252,    0,    0},
@@ -92,32 +98,75 @@ int state_list[][5] = {
   {5360, 5365, 5003, 5350, 5370},
   {5365,    0, 5360,    0,    0},
   {5370, 5375, 5003, 5360,    0},
-  {5375,    0, 5370,    0,    0}
+  {5375,    0, 5370,    0,    0},
+
+  // 6000 ----------------
+
+  {6000, 6001,     0, 5000,    0},
+  {6001,    0, 6000,    0,    0}
   
 };
 
 int state_list_index = -1;
 int current_state = 1000;
-int display_value = 1000;
+int display_value = 0;
 int old_state = current_state;
 int valve_no = 0;
 
 
 void dashboard(int state){
   int valveOpen_state = 0;
-  int number = 1000;
+  int number = 0;
 
   Serial.println(state);
 
   if ( state == old_state) {
+// continuos update set
     if ( state == 5263) {
       current_state = 5254;
     }
+    else if ( state == 5262) {
+      current_state = 5253;
+    }
+
+    switch (state) {
+      case 4111:
+          dash_4111.display_(-1*display_value);
+          break;
+      case 4121:
+          dash_4121.display_(-1*display_value);
+          break;
+      case 4131:
+          dash_4131.display_(-1*display_value);
+          break;
+      case 4141:
+          dash_4141.display_(-1*display_value);
+          break;
+      case 4211:
+          dash_4211.display_(display_value);
+          break;
+      case 4221:
+          dash_4221.display_(display_value);
+          break;
+      case 4231:
+          dash_4231.display_(display_value);
+          break;
+      case 4241:
+          dash_4241.display_(display_value);
+          break;
+    }
+    
   }
   else {
+// update if and only state change --------------------------------
     switch (state) {
       case 1000:  
           dash_1000.display_(0);
+          break;
+
+      case 1001:
+          valve_reset( FUNCTIONAL_VALES, FUNCTIONAL_VALES_SIZE);
+          current_state = 1000;
           break;
           
 
@@ -131,22 +180,15 @@ void dashboard(int state){
           current_state = 2000;
           break;
 
-      case 2010:  
-          dash_2010.display_(0);
-          break;
-
-      case 2020:  
-          dash_2020.display_(0);
-          break;
-
-      case 2030:  
-          dash_2030.display_(0);
-          break;
-
 
   // Milk process ---------------------------
       case 3000:  
           dash_3000.display_(0);
+          break;
+
+      case 3001:  
+          Milk_Process();
+          current_state = 3000;
           break;
 
 
@@ -158,82 +200,81 @@ void dashboard(int state){
       case 4010:
           dash_4010.display_(0);
           break;
-      
+  // Temp options
       case 4110:
           dash_4110.display_(0);
           break;
-
       case 4111:
-          number = display_value;
-          dash_4111.display_(number);
+          display_value = WATER_HEAT_TEMP;
+          dash_4111.display_(-1*display_value);
           break;
 
       case 4120:
           dash_4120.display_(0);
           break;
-
       case 4121:
-          number = display_value;
-          dash_4121.display_(number);
+          display_value = MILK_HIGH_TEMP;
+          dash_4121.display_(-1*display_value);
           break;
 
       case 4130:
           dash_4130.display_(0);
           break;
-
       case 4131:
-          number = display_value;
-          dash_4131.display_(number);
+          display_value = MILK_MIDDLE_TEMP;
+          dash_4131.display_(-1*display_value);
           break;
 
       case 4140:
           dash_4140.display_(0);
           break;
-
       case 4141:
-          number = display_value;
-          dash_4141.display_(number);
+          display_value = MILK_LOW_TEMP;
+          dash_4141.display_(-1*display_value);
           break;
   // Time setting    
       case 4020:
           dash_4020.display_(0);
           break;
-
+  // Time options
       case 4210:
           dash_4210.display_(0);
           break;
-
       case 4211:
-          number = display_value;
-          dash_4211.display_(number);
+          display_value = WATER_HIGH_KEEP_TIME;
+          dash_4211.display_(display_value);
           break;
 
       case 4220:
           dash_4220.display_(0);
           break;
-
       case 4221:
-          number = display_value;
-          dash_4221.display_(number);
+          display_value = HOMOGENIZER_CLEAN_TIME;
+          dash_4221.display_(display_value);
           break;
 
       case 4230:
           dash_4230.display_(0);
           break;
-
       case 4231:
-          number = display_value;
-          dash_4231.display_(number);
+          display_value = MILK_HIGH_TEMP_TIME;
+          dash_4231.display_(display_value);
           break;
 
       case 4240:
           dash_4240.display_(0);
           break;
-
       case 4241:
-          number = display_value;
-          dash_4241.display_(number);
+          display_value = MILK_HOMOGENIZE_TIME;
+          dash_4241.display_(display_value);
           break;
+
+
+      case 4901:
+          dash_4901.display_(0);
+          flash_save( old_state, display_value);
+          break;
+
 
 
   // Testing -----------------------------------        
@@ -342,7 +383,6 @@ void dashboard(int state){
 
       case 5260:
           dash_5260.display_(0);
-          // valveOpen_state = valveOpen(valve_no);
           if ( valveOpen(valve_no) == -1) {
             dash_5270.display_(0);
             delay(2000);
@@ -444,6 +484,17 @@ void dashboard(int state){
           enter_BN.pressed = false; back_BN.pressed = false; up_BN.pressed = false; down_BN.pressed = false;
           break;
 
+
+      // Diagnostics -------------
+      case 6000:
+        dash_6000.display_(0);
+        break;
+
+      case 6001:
+        Diagnostic_process();
+        current_state = 6000;
+        break;
+
           
     }
 
@@ -511,7 +562,7 @@ void dashboard_update() {
     else if ( down_BN.pressed)  {
       Serial.println("Down pressed");
       if ( state_list[state_list_index][4] == 2) {
-        if (display_value >=5) {
+        if (display_value >=10) {
           display_value = display_value - 5;
         }
       }

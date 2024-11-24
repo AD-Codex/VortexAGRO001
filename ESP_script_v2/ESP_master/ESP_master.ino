@@ -27,30 +27,33 @@ void setup() {
   dash_0000.display_(0);
   delay(1000);
 
+  // init buzzer
+  init_Buzzer();
 
   // init serial connection
   init_serial();
-  // serialCom_check();
+  serialCom_check();
 
   
   // update state to 0
   state_list_index_update();
 
 
-  // // init the relay module
-  // init_Relay();
+  // init the relay module
+  init_Relay();
 
 
-  // // init the temp sensors
-  // init_TSensor();
+  // init the temp sensors
+  init_TSensor();
 
 
-  // // init valves
-  // Switch_status();
+  // init flash memory
+  // begin_Flash();
+  init_Flash();
 
+  // check power off start
+  PowerOff_process();
 
-
-  // delay(1000);
   // start system
   dash_1000.display_(0);
 

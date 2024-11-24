@@ -104,6 +104,7 @@ int HeatToTemp( int temp) {
   }
   else {
     Serial.println(" Process terminate with error");
+    buzzerBeep(3);
   }
 
   return HeatToTemp_process;
@@ -126,6 +127,7 @@ int CoolToTemp( int temp, int drain_time) {
 
 
   Serial.println(" Drain store water");
+  coolToTemp_process = 1;
   valve_B1.open(true);
   valve_B2.open(true);
   for ( int DrainInt = 0; DrainInt < (drain_time/5); DrainInt = DrainInt + 1) {
@@ -144,7 +146,7 @@ int CoolToTemp( int temp, int drain_time) {
   mixer.Trigger(true);
 
   while ( coolToTemp_process == 1) {
-    if ( TSensor2.Read() <= temp) {
+    if ( TSensor2.Read() <= temp || true) {
       break;
     }
 
@@ -164,6 +166,7 @@ int CoolToTemp( int temp, int drain_time) {
   }
   else {
     Serial.println(" Process terminate with error");
+    buzzerBeep(3);
   }
 
   return coolToTemp_process;
@@ -193,7 +196,9 @@ int KeepTempLvl( int time)  {
   mixer.Trigger(true);
 
   for ( int KeepTempInt = 0; KeepTempInt < (time/5); KeepTempInt = KeepTempInt + 1) {
+    dash_0040.display_(time - KeepTempInt*5);
     KeepTempLvl_process = delay5s();
+    buzzerBeep(1);
     if ( KeepTempLvl_process == -1) {
       break;
     }
@@ -206,10 +211,12 @@ int KeepTempLvl( int time)  {
 
 
   if ( KeepTempLvl_process == 1) {
+    dash_0040.display_(0);
     Serial.println(" keep time process complete");
   }
   else {
     Serial.println(" keep time Process terminate with error");
+    buzzerBeep(3);
   }
 
   return KeepTempLvl_process;
@@ -229,7 +236,9 @@ int Homogenize( int time) {
   homogenizerOn.Click();
 
   for ( int HomogenizeInt = 0; HomogenizeInt < (time/5); HomogenizeInt = HomogenizeInt + 1 ) {
+    dash_0050.display_(time - HomogenizeInt*5);
     Homogenize_process = delay5s();
+    buzzerBeep(1);
     if ( Homogenize_process == -1) {
       break;
     }
@@ -239,20 +248,90 @@ int Homogenize( int time) {
   valve_B3.open(false);
 
   if ( Homogenize_process == 1) {
+    dash_0050.display_(0);
     Serial.println(" Homogenize process complete");
   }
   else {
     Serial.println(" Homogenize Process terminate with error");
+    buzzerBeep(3);
   }
 
   return Homogenize_process;
 }
 
 
-// Drain at given time
-int DrainVat( int time) {
+// Fill the vat at given time .....................
+int FillVat() {
+  int Fill_process = 0;
+
+  Fill_process = 1;
+  reset_buttons();
+  Serial.println("Start Fill process");
+  buzzerHigh(true);
+  while (Fill_process == 1) {
+    if ( enter_BN.pressed ) {
+      enter_BN.pressed = false;
+      break;
+    }
+    else if ( back_BN.pressed) {
+      back_BN.pressed = false;
+      Fill_process = -1;
+    }
+
+    delay(10);
+  }
+  buzzerHigh(false);
+
+  return Fill_process;
+}
+
+
+// Drain vat at given time ..........................
+int DrainVat() {
   int Drain_process = 0;
 
-  return 1;
+  Drain_process = 1;
+  reset_buttons();
+  Serial.println("Start Drain process");
+  while (Drain_process == 1) {
+    if ( enter_BN.pressed ) {
+      enter_BN.pressed = false;
+      break;
+    }
+    else if ( back_BN.pressed) {
+      back_BN.pressed = false;
+      Drain_process = -1;
+    }
+
+    delay(10);
+  }
+
+  return Drain_process;
+}
+
+
+// Add culture ............................
+int AddCulture() {
+  int AddCulture_process = 0;
+
+  AddCulture_process = 1;
+  reset_buttons();
+  Serial.println("Start Culture process");
+  buzzerHigh(true);
+  while (AddCulture_process == 1) {
+    if ( enter_BN.pressed ) {
+      enter_BN.pressed = false;
+      break;
+    }
+    else if ( back_BN.pressed) {
+      back_BN.pressed = false;
+      AddCulture_process = -1;
+    }
+
+    delay(10);
+  }
+  buzzerHigh(false);
+
+  return AddCulture_process;
 }
 

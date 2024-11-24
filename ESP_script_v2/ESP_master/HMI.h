@@ -1,10 +1,10 @@
 
 
-#define BUTTON_EMERG_PIN 12   // emergency stop
+#define BUTTON_EMERG_PIN 14   // emergency stop
 #define BUTTON_UP_PIN 25      // up
 #define BUTTON_EN_PIN 26      // enter
 #define BUTTON_BK_PIN 27      // back
-#define BUTTON_DN_PIN 14      // down
+#define BUTTON_DN_PIN 12      // down
 
 
 struct Button {
@@ -27,7 +27,7 @@ unsigned long last_button_time = 0;
 // interrupt fn ---------------------------------------------------------------------
 void IRAM_ATTR emergency_pressed() {
   emergeny_BN.button_time = millis();
-  if ( emergeny_BN.button_time - last_button_time > 500) 
+  if ( emergeny_BN.button_time - last_button_time > 250) 
   {
     if ( digitalRead(emergeny_BN.PIN == LOW)) {
       emergeny_BN.pressed = true;
@@ -38,7 +38,7 @@ void IRAM_ATTR emergency_pressed() {
 
 void IRAM_ATTR enter_pressed() {
   enter_BN.button_time = millis();
-  if ( enter_BN.button_time - last_button_time > 500) 
+  if ( enter_BN.button_time - last_button_time > 250) 
   {
     if ( digitalRead(enter_BN.PIN == LOW)) {
       enter_BN.pressed = true;
@@ -49,7 +49,7 @@ void IRAM_ATTR enter_pressed() {
 
 void IRAM_ATTR back_pressed() {
   back_BN.button_time = millis();
-  if ( back_BN.button_time - last_button_time > 500) 
+  if ( back_BN.button_time - last_button_time > 250) 
   {
     if ( digitalRead(back_BN.PIN == LOW)) {
       back_BN.pressed = true;
@@ -60,7 +60,7 @@ void IRAM_ATTR back_pressed() {
 
 void IRAM_ATTR up_pressed() {
   up_BN.button_time = millis();
-  if ( up_BN.button_time - last_button_time > 500) 
+  if ( up_BN.button_time - last_button_time > 250) 
   {
     if ( digitalRead(up_BN.PIN == LOW)) {
       up_BN.pressed = true;
@@ -71,7 +71,7 @@ void IRAM_ATTR up_pressed() {
 
 void IRAM_ATTR down_pressed() {
   down_BN.button_time = millis();
-  if ( down_BN.button_time - last_button_time > 500) 
+  if ( down_BN.button_time - last_button_time > 250) 
   {
     if ( digitalRead(down_BN.PIN == LOW)) {
       down_BN.pressed = true;

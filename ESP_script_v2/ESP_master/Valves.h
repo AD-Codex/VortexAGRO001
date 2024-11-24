@@ -34,6 +34,8 @@
 
 HardwareSerial SerialPort(2); // use UART2
 
+int FUNCTIONAL_VALES[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+int FUNCTIONAL_VALES_SIZE = 9;
 
 int slave_callback(String send_) {
   SerialPort.flush();
@@ -173,15 +175,18 @@ int slave_callback(String send_) {
     if ( back_BN.pressed ) {
       Serial.println("Back pressed");
       back_BN.pressed = false;
+      slave_callback_state = 0;
       break;
     }
-    else if ( (millis() - time_start) > 8000 ) {
+    else if ( (millis() - time_start) > 5000 ) {
       Serial.println("error, time exceed");
+      buzzerBeep(3);
       slave_callback_state = -2;
       break;
     }
     else if ( Msg == "9999") {
       Serial.println("stm recived, time exceed");
+      buzzerBeep(3);
       slave_callback_state = -1;
       break;
     }

@@ -56,7 +56,7 @@ void valve_Open( Switch &switch_B, Motor &motorSet_, const char* valve, String i
 
   time_start = millis();
   while (true) {
-    if ( (millis() - time_start) > 5000) {
+    if ( (millis() - time_start) > 4000) {
       motorSet_.motorClose();
       Serial.println("valve open time exceed..");
       Serial2.print( "9999\n");
