@@ -36,11 +36,12 @@ int delay5s() {
         }
         else if (down_BN.pressed == true) {
           down_BN.pressed = false;
-          delay5s_state = 1;
+          delay5s_state = 0;
           break;
         }
         else if ( enter_BN.pressed == true) {
           enter_BN.pressed = false;
+          delay5s_state = 1;
           break;
         }
         delay(50);
@@ -70,45 +71,55 @@ int HeatToTemp( int temp) {
 
 
   Serial.println(" Starting Heating Process");
-  HeatToTemp_process =  1;
-  valve_A4.open(true);
-  valve_A1.open(true);
-  valve_A3.open(true);
-  boilPump.Trigger(true);
-  mixer.Trigger(true);
 
-  while ( HeatToTemp_process == 1) {
-    if ( TSensor1.Read() > temp || true) {
-      if ( TSensor2.Read() >= temp || true) {
-        break;
+  HeatToTemp_process = delay5s();
+  if ( HeatToTemp_process == 1) {
+    valve_A4.open(true);
+    valve_A1.open(true);
+    valve_A3.open(true);
+    boilPump.Trigger(true);
+    mixer.Trigger(true);
+
+    while ( HeatToTemp_process == 1) {
+      if ( TSensor1.Read() > temp || true) {
+        if ( TSensor2.Read() >= temp || true) {
+          break;
+        }
+
+      }
+      else {
+        Serial.println(" Boiler Temp not at range");
       }
 
-    }
-    else {
-      Serial.println(" Boiler Temp not at range");
+      HeatToTemp_process = delay5s();
+      
     }
 
-    HeatToTemp_process = delay5s();
-    
+    mixer.Trigger(false);
+    boilPump.Trigger(false);
+    valve_A4.open(false);
+    valve_A1.open(false);
+    valve_A3.open(false);
+
   }
-
-  mixer.Trigger(false);
-  boilPump.Trigger(false);
-  valve_A4.open(false);
-  valve_A1.open(false);
-  valve_A3.open(false);
 
 
   if ( HeatToTemp_process == 1) {
     Serial.println(" Reach to given temp");
+    HeatToTemp_process = 1;
   }
+  else if ( HeatToTemp_process == 0) {
+    Serial.println(" skip process");
+    HeatToTemp_process = 1;
+  } 
   else {
     Serial.println(" Process terminate with error");
+    HeatToTemp_process = -1;
     buzzerBeep(3);
   }
 
+
   return HeatToTemp_process;
-  
 }
 
 
@@ -127,50 +138,60 @@ int CoolToTemp( int temp, int drain_time) {
 
 
   Serial.println(" Drain store water");
-  coolToTemp_process = 1;
-  valve_B1.open(true);
-  valve_B2.open(true);
-  for ( int DrainInt = 0; DrainInt < (drain_time/5); DrainInt = DrainInt + 1) {
-    coolToTemp_process = delay5s();
-    if ( coolToTemp_process == -1) {
-      break;
+
+  coolToTemp_process = delay5s();
+  if ( coolToTemp_process == 1) {
+    valve_B1.open(true);
+    valve_B2.open(true);
+    for ( int DrainInt = 0; DrainInt < (drain_time/5); DrainInt = DrainInt + 1) {
+      coolToTemp_process = delay5s();
+      if ( coolToTemp_process != 1) {
+        break;
+      }
     }
-  }
-  valve_B2.open(false);
+    valve_B2.open(false);
 
 
-  Serial.println(" Starting Cooling process");
-  valve_A5.open(true);
-  valve_A6.open(true);
-  coolPump.Trigger(true);
-  mixer.Trigger(true);
+    Serial.println(" Starting Cooling process");
+    valve_A5.open(true);
+    valve_A6.open(true);
+    coolPump.Trigger(true);
+    mixer.Trigger(true);
 
-  while ( coolToTemp_process == 1) {
-    if ( TSensor2.Read() <= temp || true) {
-      break;
+    while ( coolToTemp_process == 1) {
+      if ( TSensor2.Read() <= temp || true) {
+        break;
+      }
+
+      coolToTemp_process = delay5s();
+
     }
 
-    coolToTemp_process = delay5s();
+    mixer.Trigger(false);
+    coolPump.Trigger(false);
+    valve_A6.open(false);
+    valve_B1.open(false);
+    valve_A5.open(false);
 
   }
-
-  mixer.Trigger(false);
-  coolPump.Trigger(false);
-  valve_A6.open(false);
-  valve_B1.open(false);
-  valve_A5.open(false);
 
 
   if ( coolToTemp_process == 1) {
     Serial.println(" Reach to given temp");
+    coolToTemp_process = 1;
+  }
+  else if ( coolToTemp_process == 0) {
+    Serial.println("  skip process");
+    coolToTemp_process = 1;
   }
   else {
     Serial.println(" Process terminate with error");
+    coolToTemp_process = -1;
     buzzerBeep(3);
   }
 
-  return coolToTemp_process;
 
+  return coolToTemp_process;
 }
 
 
@@ -189,38 +210,47 @@ int KeepTempLvl( int time)  {
 
 
   Serial.println(" Starting Keeping process");
-  KeepTempLvl_process =1;
-  valve_A4.open(true);
-  valve_A2.open(true);
-  boilPump.Trigger(true);
-  mixer.Trigger(true);
 
-  for ( int KeepTempInt = 0; KeepTempInt < (time/5); KeepTempInt = KeepTempInt + 1) {
-    dash_0040.display_(time - KeepTempInt*5);
-    KeepTempLvl_process = delay5s();
-    buzzerBeep(1);
-    if ( KeepTempLvl_process == -1) {
-      break;
+  KeepTempLvl_process = delay5s();
+  if ( KeepTempLvl_process == 1) {
+    valve_A4.open(true);
+    valve_A2.open(true);
+    boilPump.Trigger(true);
+    mixer.Trigger(true);
+
+    for ( int KeepTempInt = 0; KeepTempInt < (time/5); KeepTempInt = KeepTempInt + 1) {
+      dash_0040.display_(time - KeepTempInt*5);
+      KeepTempLvl_process = delay5s();
+      buzzerBeep(1);
+      if ( KeepTempLvl_process != 1) {
+        break;
+      }
     }
-  }
 
-  mixer.Trigger(false);
-  boilPump.Trigger(false);
-  valve_A4.open(false);
-  valve_A2.open(false);
+    mixer.Trigger(false);
+    boilPump.Trigger(false);
+    valve_A4.open(false);
+    valve_A2.open(false);
+
+  }
 
 
   if ( KeepTempLvl_process == 1) {
-    dash_0040.display_(0);
     Serial.println(" keep time process complete");
+    KeepTempLvl_process = 1;
+  }
+  else if ( KeepTempLvl_process == 0) {
+    Serial.println(" skip process");
+    KeepTempLvl_process = 1;
   }
   else {
     Serial.println(" keep time Process terminate with error");
+    KeepTempLvl_process = -1;
     buzzerBeep(3);
   }
 
-  return KeepTempLvl_process;
 
+  return KeepTempLvl_process;
 }
 
 
@@ -231,30 +261,41 @@ int Homogenize( int time) {
   valve_B3.open(false);
 
   Serial.println(" Starting Homogenize process");
-  Homogenize_process = 1;
-  valve_B3.open(true);
-  homogenizerOn.Click();
 
-  for ( int HomogenizeInt = 0; HomogenizeInt < (time/5); HomogenizeInt = HomogenizeInt + 1 ) {
-    dash_0050.display_(time - HomogenizeInt*5);
-    Homogenize_process = delay5s();
-    buzzerBeep(1);
-    if ( Homogenize_process == -1) {
-      break;
+  Homogenize_process = delay5s();
+  if ( Homogenize_process == 1) {
+    valve_B3.open(true);
+    homogenizerOn.Click();
+
+    for ( int HomogenizeInt = 0; HomogenizeInt < (time/5); HomogenizeInt = HomogenizeInt + 1 ) {
+      dash_0050.display_(time - HomogenizeInt*5);
+      Homogenize_process = delay5s();
+      buzzerBeep(1);
+      if ( Homogenize_process != 1) {
+        break;
+      }
     }
+
+    homogenizerOff.Click();
+    valve_B3.open(false);
+
   }
 
-  homogenizerOff.Click();
-  valve_B3.open(false);
 
   if ( Homogenize_process == 1) {
-    dash_0050.display_(0);
     Serial.println(" Homogenize process complete");
+    Homogenize_process = 1;
+  }
+  else if ( Homogenize_process == 0) {
+    Serial.println(" skip process");
+    Homogenize_process = 1;
   }
   else {
     Serial.println(" Homogenize Process terminate with error");
+    Homogenize_process = -1;
     buzzerBeep(3);
   }
+
 
   return Homogenize_process;
 }

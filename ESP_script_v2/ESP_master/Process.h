@@ -19,7 +19,7 @@
 # include "Flash.h"
 
 
-
+// valve reset Fn ----------------------------------------
 void valve_reset( int valve_numbers[], int size) {
   int valve_reset_status = 1;
   int operation_valve[size];
@@ -30,35 +30,57 @@ void valve_reset( int valve_numbers[], int size) {
   }
 
   dash_0025.display_(0);
-
-  init_ValveStatus();
-
+  while (true) {
+    if ( Switch_status() == 1) {
+      break;
+    }
+    delay(10);
+  }
   delay(1000);
 
   dash_0027.display_(0);
-
   for (int i=0; i<9; i=i+1) {
     int valveOpen_state = valveOpen( operation_valve[i]);
     if ( valveOpen_state == 0) {
       break;
     }
-    if ( valveOpen_state == -1 || valveOpen_state == -2 ) {
+    else if ( valveOpen_state == -1 || valveOpen_state == -2 ) {
       dash_0015.display_( operation_valve[i]);
-      delay(1000);
+      valve_reset_status = 0;
       break;
     }
     
     int valveClose_state = valveClose( operation_valve[i]);
-    if ( valveClose_state== -1 || valveClose_state == -2) {
+    if ( valveClose_state == 0) {
+      break;
+    }
+    else if ( valveClose_state== -1 || valveClose_state == -2) {
        dash_0020.display_( operation_valve[i]);
-       delay(1000);
+       valve_reset_status = 0;
        break;
     }
   }
 
+
+  // enter button press
+  if ( valve_reset_status == 0) {
+    enter_BN.pressed = false; back_BN.pressed = false;
+    while ( true) {
+      if (enter_BN.pressed || back_BN.pressed) {
+        enter_BN.pressed = false;
+        back_BN.pressed = false;
+        break;
+      }
+      delay(100);
+    }
+
+  }
+
+
 }
 
 
+// clean process --------------------------------------
 void Clean_Process() {
   int continue_process = 0;
 
@@ -127,6 +149,7 @@ void Clean_Process() {
 }
 
 
+// curd process ---------------------------------------
 void Milk_Process() {
   int continue_process = 0;
 
@@ -207,11 +230,11 @@ void Milk_Process() {
   }
 
   state_save(0);
-
   
 }
 
 
+// incomplete process continue ----------------------------
 void PowerOff_process() {
   int PowerOff_process = 1;
 
@@ -223,10 +246,10 @@ void PowerOff_process() {
     while ( true) {
       if ( enter_BN.pressed ) {
         enter_BN.pressed = false;
-        if ( EEPROM_state > 3000) {
+        if ( EEPROM_state > 3000 && EEPROM_state < 4000) {
           Milk_Process();
         }
-        else {
+        else if (EEPROM_state > 2000 && EEPROM_state < 3000 ) {
           Clean_Process();
         }
         break;
@@ -237,12 +260,14 @@ void PowerOff_process() {
         break;
       }
       delay(10);
+
     }
   }
 
 }
 
 
+// system diagnostic process ------------------------------
 void Diagnostic_process( ) {
 
   // boil pump check
@@ -251,7 +276,7 @@ void Diagnostic_process( ) {
   Serial.println("Does Boil pump on");
   while (true) {
     if ( enter_BN.pressed ) {
-      boilPump.Trigger(false);
+      enter_BN.pressed = false;
       break;
     }
     else if ( back_BN.pressed )  {
@@ -262,6 +287,8 @@ void Diagnostic_process( ) {
     delay(10);
   }
   boilPump.Trigger(false);
+
+  delay(2000);
 
 
   // cool pump check
@@ -303,9 +330,9 @@ void Diagnostic_process( ) {
 
   
   // Homoginizer on check
-  homogenizerOn.Trigger(true);
-  delay(500);
   homogenizerOn.Trigger(false);
+  delay(1000);
+  homogenizerOn.Trigger(true);
   dash_6040.display_(0);
   Serial.println("Does homogenizer on");
   while (true) {
@@ -323,9 +350,9 @@ void Diagnostic_process( ) {
 
 
   // Homoginizer off check
-  homogenizerOff.Trigger(true);
-  delay(500);
   homogenizerOff.Trigger(false);
+  delay(1000);
+  homogenizerOff.Trigger(true);
   dash_6050.display_(0);
   Serial.println("Does homogenizer off");
   while (true) {

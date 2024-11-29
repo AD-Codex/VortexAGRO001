@@ -20,7 +20,6 @@ void setup() {
   // init the display at beginning
   lcd.init();
   lcd.backlight();
-
   
   // init user buttons
   init_HMI();
@@ -33,19 +32,15 @@ void setup() {
   // init serial connection
   init_serial();
   serialCom_check();
-
   
   // update state to 0
   state_list_index_update();
 
-
   // init the relay module
   init_Relay();
 
-
   // init the temp sensors
   init_TSensor();
-
 
   // init flash memory
   // begin_Flash();

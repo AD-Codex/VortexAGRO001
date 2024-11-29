@@ -24,6 +24,8 @@ int HEAT_WATER_DRAIN_TIME; // = 5;    // H_W_D_T - darin water time in coile, he
 int EEPROM_state;                     // state, 0-no save
 
 
+
+// begin flash EEPROM at first time --------------------------------------
 void begin_Flash() {
   preferences.begin("project001", false);
   preferences.clear();
@@ -50,6 +52,9 @@ void begin_Flash() {
 
 }
 
+
+
+// initialize EEPROM at the begining ----------------------------------------------
 void init_Flash() {
   preferences.begin("project001", false);
 
@@ -74,12 +79,13 @@ void init_Flash() {
 
   preferences.end();
 
-
 }
 
 
+// save the customize setting values according to state  -------------------------------------------------------
 void flash_save(int state, int dis_val) {
   Serial.printf("state %d, val %d ", state, dis_val);
+  dash_4901.display_(0);
 
   enter_BN.pressed = false; enter_BN.pressed = false;
   while(true) {
@@ -170,12 +176,13 @@ void flash_save(int state, int dis_val) {
 
     delay(10);
   }
-
   
 }
 
 
+// save the process state ----------------------------------
 void state_save( int state) {
+  EEPROM_state = state;
   preferences.begin("project001", false);
   preferences.putUInt("state", state);
   preferences.end();

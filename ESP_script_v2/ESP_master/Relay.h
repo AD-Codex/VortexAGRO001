@@ -9,7 +9,7 @@
 #define HOMOGENIZER_OFF_PIN 2
 
 
-
+// Relay object deffine ----------------------------------------------
 struct Relay {
   const uint8_t PIN;
   bool state;
@@ -31,9 +31,9 @@ struct Relay {
   }
 
   void Click() {
-    digitalWrite( PIN, HIGH);
-    delay(1000);
     digitalWrite( PIN, LOW);
+    delay(1000);
+    digitalWrite( PIN, HIGH);
     Serial.print(name );
     Serial.println(" Clicked");
 
@@ -61,8 +61,8 @@ void init_Relay() {
   boilPump.Trigger(false);
   coolPump.Trigger(false);
   mixer.Trigger(false);
-  homogenizerOn.Trigger(false);
-  homogenizerOff.Trigger(false);
+  homogenizerOn.Trigger(true);
+  homogenizerOff.Trigger(true);
   
   
 }

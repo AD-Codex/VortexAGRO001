@@ -37,6 +37,8 @@ HardwareSerial SerialPort(2); // use UART2
 int FUNCTIONAL_VALES[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
 int FUNCTIONAL_VALES_SIZE = 9;
 
+
+// STM32 feedback observer Fn ------------------------------------
 int slave_callback(String send_) {
   SerialPort.flush();
 
@@ -197,7 +199,7 @@ int slave_callback(String send_) {
   return slave_callback_state;
 }
 
-
+// Valve object deffine ------------------------------------------
 struct Valve {
   String valve;
   String closeIndex;
@@ -291,6 +293,9 @@ Valve valve_B6 = {"valve12", "2060", "2061", "2063", "2064", false};
 
 
 
+
+
+// valve open Fn with valve numbers ------------------------------------
 int valveOpen( int num) {
   int valveOpen_state = 0;
   switch (num) {
@@ -336,6 +341,7 @@ int valveOpen( int num) {
 
 }
 
+// valve close Fn with valve numbers ------------------------------------
 int valveClose(int num) {
   int valveClose_state = 0;
   switch (num) {
@@ -381,6 +387,7 @@ int valveClose(int num) {
 
 }
 
+// valve turn clockwise Fn with valve numbers ---------------------------
 void valveClkTurn( int num) {
   switch (num) {
     case 1:
@@ -423,6 +430,7 @@ void valveClkTurn( int num) {
 
 }
 
+// valve turn anticlockwise Fn with valve numbers -----------------------
 void valveAclkTurn( int num) {
   switch (num) {
     case 1:
@@ -464,6 +472,7 @@ void valveAclkTurn( int num) {
   }
 
 }
+
 
 
 void valveExample() {

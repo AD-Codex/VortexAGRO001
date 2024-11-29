@@ -12,24 +12,25 @@
 
 int detect_valve[] = {0,0,0,0,0,0};
 
-int valve_stats( String receivedMessage) {
 
+// decode the received msg from STM32 --------------------------------------------
+int valve_stats( String receivedMessage) {
   for (int i=0; i<12; i=i+2){
     if ( receivedMessage[i] == '1' and receivedMessage[i+1] == '1') {
       Serial.println( String((i/2)+1) + " valve not connected or error in limit switch.");
-      detect_valve[(i/2)+1] = 0;
+      detect_valve[(i/2)] = 0;
     }
     else if ( receivedMessage[i] == '0' and receivedMessage[i+1] == '1') {
       Serial.println( String((i/2)+1) + " valve opened.");
-      detect_valve[(i/2)+1] = 1;
+      detect_valve[(i/2)] = 1;
     }
     else if ( receivedMessage[i] == '1' and receivedMessage[i+1] == '0') {
       Serial.println( String((i/2)+1) + " valve closed.");
-      detect_valve[(i/2)+1] = 1;
+      detect_valve[(i/2)] = 1;
     }
     else if ( receivedMessage[i] == '0' and receivedMessage[i+1] == '0') {
       Serial.println( String((i/2)+1) + " valve not close and open.");
-      detect_valve[(i/2)+1] = 1;
+      detect_valve[(i/2)] = 1;
     }
     else {
       Serial.println( String((i/2)+1) + " error in recived data");
@@ -41,7 +42,7 @@ int valve_stats( String receivedMessage) {
 
 }
 
-
+// check the switch states ----------------------------------------------------------------------------------
 int Switch_status() {
   String receivedMessage;
   int time_start = 0;
@@ -50,7 +51,7 @@ int Switch_status() {
 
   dash_0025.display_(0);
 
-  // STM 1 status check ---------------------
+  // STM 1 status check ----------------------------------------------------------------------
   Serial.println("STM1 valve check sending 1002\n");
   SerialPort.print("1002\n");
 
@@ -86,7 +87,7 @@ int Switch_status() {
   }
   delay(2000);
 
-  // STM 2 status check ---------------------
+  // STM 2 status check --------------------------------------------------------------
   Serial.println("STM2 valve check sending 2002\n");
   SerialPort.print("2002\n");
 
@@ -119,6 +120,7 @@ int Switch_status() {
     }
   }
 
+  // display switch states on lcd ---------------------------------------
   dash_0026.valveState( Astr, Bstr);
   buzzerHigh(true);
   enter_BN.pressed = false; back_BN.pressed = false;
@@ -139,11 +141,4 @@ int Switch_status() {
 
 }
 
-void init_ValveStatus() {
-  while (true) {
-    if ( Switch_status() == 1) {
-      break;
-    }
-  }
-}
 

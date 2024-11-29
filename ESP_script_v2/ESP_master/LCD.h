@@ -6,16 +6,19 @@
 
 LiquidCrystal_I2C lcd(0x27,16,4);  // set the LCD address to 0x3F for a 16 chars and 2 line display
 
+
+// Dashboard object deffine --------------------------------
 struct Dashboard {
   String row0;
   String row1;
   String row2;
   String row3;
 
+  // normal display Fn ------
   void display_(int number) {
     char str[15];
     lcd.clear();         
-//    lcd.backlight();
+    // lcd.backlight();
     
     lcd.setCursor(0,0);
     lcd.print(row0);
@@ -23,6 +26,7 @@ struct Dashboard {
     lcd.print(row1);
     lcd.setCursor(-4,2);
     lcd.print(row2);
+
     if (number == 0) {
       lcd.setCursor(-4,3);
       lcd.print(row3);
@@ -44,6 +48,7 @@ struct Dashboard {
     
   }
 
+  // special display Fn ------------
   void valveState( String Astate, String Bstate) {
     lcd.clear();        
     
@@ -59,6 +64,8 @@ struct Dashboard {
   
 };
 
+
+// ------------------------  Dash Board deffine Fun ----------------------------------------------
 
 // 0000 --------------------------------
 Dashboard dash_0000 = { "", " Vortex Labs", " Project 001", ""};
@@ -195,18 +202,18 @@ Dashboard dash_5271 = { " Warning :", " ", " Valve not ", " Closing"};
 
 Dashboard dash_5003 = { " 01.Temp sens"  , " 02.Valves", ">03.Pumps", " "};
 
-Dashboard dash_5320 = { ">01.Pmp 1 open" , " 02.Pmp 1 close", " 03.Pmp 2 open", " 04.Pmp 2 close"};
-Dashboard dash_5325 = { " Testing :", " Opening Pump", " 01", " "};
-Dashboard dash_5330 = { " 01.Pmp 1 open" , ">02.Pmp 1 close", " 03.Pmp 2 open", " 04.Pmp 2 close"};
-Dashboard dash_5335 = { " Testing :", " Closing Pump", " 01", " "};
-Dashboard dash_5340 = { " 02.Pmp 1 close", ">03.Pmp 2 open", " 04.Pmp 2 close", " 05.Pmp 3 open"};
-Dashboard dash_5345 = { " Testing :", " Opening Pump", " 02", " "};
-Dashboard dash_5350 = { " 03.Pmp 2 open" , ">04.Pmp 2 close", " 05.Pmp 3 open", " 06.Pmp 3 close"};
-Dashboard dash_5355 = { " Testing :", " Closing Pump", " 02", " "};
-Dashboard dash_5360 = { " 04.Pmp 2 close", ">05.Pmp 3 open", " 06.Pmp 3 close", " "};
-Dashboard dash_5365 = { " Testing :", " Opening Pump", " 03", " "};
-Dashboard dash_5370 = { " 05.Pmp 3 open" , ">06.Pmp 3 close", " ", " "};
-Dashboard dash_5375 = { " Testing :", " Closing Pump", " 03", " "};
+Dashboard dash_5320 = { ">01.B_pump ON" , " 02.B_pump OFF", " 03.C_pump ON", " 04.C_pump OFF"};
+Dashboard dash_5325 = { " Testing :", " Boiler Pump", " ON", " "};
+Dashboard dash_5330 = { " 01.B_pump ON" , ">02.B_pump OFF", " 03.C_pump ON", " 04.C_pump OFF"};
+Dashboard dash_5335 = { " Testing :", " Boiler Pump", " OFF", " "};
+Dashboard dash_5340 = { " 02.B_pump OFF", ">03.C_pump ON", " 04.C_pump OFF", " 05.Mixer ON"};
+Dashboard dash_5345 = { " Testing :", " Cooler Pump", " ON", " "};
+Dashboard dash_5350 = { " 03.C_pump ON" , ">04.C_pump OFF", " 05.Mixer ON", " 06.Mixer OFF"};
+Dashboard dash_5355 = { " Testing :", " Cooler Pump", " OFF", " "};
+Dashboard dash_5360 = { " 04.C_pump OFF", ">05.Mixer ON", " 06.Mixer OFF", " "};
+Dashboard dash_5365 = { " Testing :", " Vat Mixer", " ON", " "};
+Dashboard dash_5370 = { " 05.Mixer ON" , ">06.Mixer OFF", " ", " "};
+Dashboard dash_5375 = { " Testing :", " Vat Mixer", " OFF", " "};
 
 
 // 6000 ---------------------------------

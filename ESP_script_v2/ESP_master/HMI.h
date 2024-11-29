@@ -1,12 +1,15 @@
 
 
-#define BUTTON_EMERG_PIN 14   // emergency stop
-#define BUTTON_UP_PIN 25      // up
-#define BUTTON_EN_PIN 26      // enter
+#define BUTTON_EMERG_PIN 12   // emergency stop
+#define BUTTON_UP_PIN 14      // up
+#define BUTTON_EN_PIN 25      // enter
 #define BUTTON_BK_PIN 27      // back
-#define BUTTON_DN_PIN 12      // down
+#define BUTTON_DN_PIN 26      // down
 
 
+unsigned long last_button_time = 0;
+
+// Button object deffine ------------------------------------------------------------
 struct Button {
   const uint8_t PIN;
   bool pressed;
@@ -14,17 +17,14 @@ struct Button {
 
 };
 
-
-// define button -----------------------------------------------------------------
 Button enter_BN = { BUTTON_EN_PIN, false, 0};
 Button back_BN = { BUTTON_BK_PIN, false, 0};
 Button up_BN = { BUTTON_UP_PIN, false, 0};
 Button down_BN = { BUTTON_DN_PIN, false, 0};
 Button emergeny_BN = { BUTTON_EMERG_PIN, false, 0};
 
-unsigned long last_button_time = 0;
 
-// interrupt fn ---------------------------------------------------------------------
+// interrupt Fn ---------------------------------------------------------------------
 void IRAM_ATTR emergency_pressed() {
   emergeny_BN.button_time = millis();
   if ( emergeny_BN.button_time - last_button_time > 250) 
@@ -81,7 +81,7 @@ void IRAM_ATTR down_pressed() {
 }
 
 
-// init H M I ---------------------------------------------------------------------
+// init H M I input buttons -----------------------------------------------------
 void init_HMI() {
   pinMode(emergeny_BN.PIN, INPUT_PULLUP);
   pinMode(enter_BN.PIN, INPUT_PULLUP);
@@ -98,6 +98,7 @@ void init_HMI() {
   
 }
 
+// reset butto state --------------------------------------------------------
 void reset_buttons(){
   enter_BN.pressed = false;
   back_BN.pressed = false;

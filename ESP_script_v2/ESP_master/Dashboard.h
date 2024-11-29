@@ -3,6 +3,13 @@
 // 9999 - update comming soon
 // 0 - invalid
 
+int state_list_index = -1;
+int current_state = 1000;
+int display_value = 0;
+int old_state = current_state;
+int valve_no = 0;
+
+// state diagrame -------------------------------------------------------
 int state_list[][5] = {
   // 1000 ---------------------
   {1000, 1001,    0,    0, 2000},  
@@ -107,13 +114,8 @@ int state_list[][5] = {
   
 };
 
-int state_list_index = -1;
-int current_state = 1000;
-int display_value = 0;
-int old_state = current_state;
-int valve_no = 0;
 
-
+// Main Dashboard Fn ------------------------------------------------------------
 void dashboard(int state){
   int valveOpen_state = 0;
   int number = 0;
@@ -502,21 +504,26 @@ void dashboard(int state){
 
   old_state = state ;
 
-  
 }
 
 
+
+
+// current state inde update --------------------------------------------
 void state_list_index_update() {  
   for(int i; i<sizeof(state_list); i=i+1) {
     if ( current_state == state_list[i][0]) {
       state_list_index = i;
       break;
     }
+
   }
+
 }
 
-void dashboard_update() {
 
+// dashboard update according to input Fn ----------------------------------------
+void dashboard_update() {
   if (state_list_index >= 0) {
     if ( enter_BN.pressed)  {
       Serial.println("Enter pressed");

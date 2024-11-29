@@ -3,21 +3,22 @@
 // time limit 3s
 // if time exceed try in 5s
 
-int Serial_com = 1;
 int time_space = 0;
 
 
+// initializing serial bus --------------------------------------
 void init_serial() {
   SerialPort.begin(115200, SERIAL_8N1, 16, 17);  //uart 2
 
 }
 
-
-void stm32_check() {
+// STM32 chip check Fn ------------------------------------------
+int stm32_check() {
   String receivedMessage;
   int time_start = 0;
-  Serial_com = 1;
+  int Serial_com = 1;
 
+  // STM1 checking process -----------------------------------------
   if (Serial_com == 1) {
     // communicate with STM 1 ..............
     SerialPort.println("1001\n");
@@ -45,14 +46,13 @@ void stm32_check() {
           receivedMessage =  receivedMessage + receivedChar;
         }
       }
-
     }
 
   }
 
   delay(500);
   
-
+  // STM2 checking process -----------------------------------------
   if ( Serial_com == 1) {
     // communicate with STM 2 ..............
     SerialPort.println("2001\n");
@@ -79,15 +79,16 @@ void stm32_check() {
           receivedMessage += receivedChar;
         }
       }
-
     }
+
   }
+
+
+  return Serial_com;
   
-
-
 }
 
-
+// checking the STM32 chips serial connection ------------------------------
 void serialCom_check() {
   Serial.println("checking serial connecting -----------");
   dash_0005.display_(0);
@@ -96,8 +97,7 @@ void serialCom_check() {
   int Serial_process = 1;
 
   while (true) {
-    stm32_check();
-    if (Serial_com == 1) {
+    if ( stm32_check() == 1) {
       Serial.println("serial connecting completed -----------");
       break;
     }

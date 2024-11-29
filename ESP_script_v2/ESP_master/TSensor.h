@@ -7,6 +7,7 @@
 #define TMP_MILK1_PIN 34
 //#define TMP_BOIL_PIN 32
 //#define TMP_MILK1_PIN 33
+#define ERROR_LED 32
 #define BUZZ_PIN 33
 
 
@@ -36,6 +37,8 @@ void init_TSensor() {
   TSensor2.init();
 }
 
+
+// init buzzer Fn ----------------------------------------------
 void init_Buzzer() {
   pinMode( BUZZ_PIN, OUTPUT);
   digitalWrite( BUZZ_PIN, LOW);
@@ -60,3 +63,5 @@ void buzzerHigh( bool state) {
   }
   
 }
+
+
