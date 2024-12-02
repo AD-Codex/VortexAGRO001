@@ -13,11 +13,11 @@
 // sending 2pair of 12bit data
 // switch close -1, switch open -0
 
-#define SWITCH_SET1_A_PIN PB14
-#define SWITCH_SET1_B_PIN PB15
+#define SWITCH_SET1_A_PIN PA12
+#define SWITCH_SET1_B_PIN PB3
 
-#define SWITCH_SET2_A_PIN PA12
-#define SWITCH_SET2_B_PIN PB3
+#define SWITCH_SET2_A_PIN PB14
+#define SWITCH_SET2_B_PIN PB15
 
 #define SWITCH_SET3_A_PIN PB6
 #define SWITCH_SET3_B_PIN PB7

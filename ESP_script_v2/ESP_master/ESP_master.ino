@@ -27,7 +27,7 @@ void setup() {
   delay(1000);
 
   // init buzzer
-  init_Buzzer();
+  init_Indicators();
 
   // init serial connection
   init_serial();
@@ -59,6 +59,9 @@ void loop() {
 
   dashboard_update();
   delay(200);
+
+  // TSensor2.Read();
+  // delay(1000);
 
   // if (SerialPort.available()) {
   //     char number = SerialPort.read();

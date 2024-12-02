@@ -171,7 +171,7 @@ void Milk_Process() {
 
   // heat Milk to MILK_HIGH_TEMP
   if ( continue_process == 1 || EEPROM_state == 3010) {
-    dash_3010.display_(0);
+    dash_3010.display_( -1 * MILK_HIGH_TEMP);
     state_save(3010);
     Serial.println(" heat milk to MILK_HIGH_TEMP");
     continue_process = HeatToTemp( MILK_HIGH_TEMP);
@@ -193,14 +193,6 @@ void Milk_Process() {
     continue_process = CoolToTemp( MILK_MIDDLE_TEMP, HEAT_WATER_DRAIN_TIME);
   }
 
-  // Add Culture to milk in 
-  if ( continue_process == 1 || EEPROM_state == 3050) {
-    dash_3050.display_(0);
-    state_save(3050);
-    Serial.println(" Add Culture Milk tank");
-    continue_process = AddCulture();
-  }
-
   // Homogenize process at MILK_HOMOGENIZE_TIME
   if ( continue_process == 1 || EEPROM_state == 3060) {
     dash_3060.display_( MILK_HOMOGENIZE_TIME);
@@ -215,6 +207,21 @@ void Milk_Process() {
     state_save(3070);
     Serial.println(" cool milk to MILK_LOW_TEMP");
     continue_process = CoolToTemp( MILK_LOW_TEMP, 0);
+  }
+
+  // Add Culture to milk in 
+  if ( continue_process == 1 || EEPROM_state == 3050) {
+    dash_3050.display_(0);
+    state_save(3050);
+    Serial.println(" Add Culture Milk tank");
+    continue_process = AddCulture();
+  }
+
+  if ( continue_process == 1 || EEPROM_state == 3060) {
+    dash_3060.display_( 5);
+    state_save(3060);
+    Serial.println(" Homogenize process at MILK_HOMOGENIZE_TIME");
+    continue_process = Homogenize( 5);
   }
 
 
@@ -309,6 +316,8 @@ void Diagnostic_process( ) {
   }
   coolPump.Trigger(false);
 
+  delay(2000);
+
   
   // mixer pump check
   mixer.Trigger(true);
@@ -328,11 +337,13 @@ void Diagnostic_process( ) {
   }
   mixer.Trigger(false);
 
+  delay(2000);
+
   
   // Homoginizer on check
-  homogenizerOn.Trigger(false);
-  delay(1000);
   homogenizerOn.Trigger(true);
+  delay(1000);
+  homogenizerOn.Trigger(false);
   dash_6040.display_(0);
   Serial.println("Does homogenizer on");
   while (true) {
@@ -348,11 +359,13 @@ void Diagnostic_process( ) {
     delay(10);
   }
 
+  delay(5000);
+
 
   // Homoginizer off check
-  homogenizerOff.Trigger(false);
-  delay(1000);
   homogenizerOff.Trigger(true);
+  delay(1000);
+  homogenizerOff.Trigger(false);
   dash_6050.display_(0);
   Serial.println("Does homogenizer off");
   while (true) {
@@ -367,6 +380,7 @@ void Diagnostic_process( ) {
     }
     delay(10);
   }
+
 
   
 }

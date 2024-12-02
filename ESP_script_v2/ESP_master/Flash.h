@@ -18,7 +18,7 @@ int MILK_HIGH_TEMP_TIME; // = 10;     // M_H_T_T - Time milk keep at hig temp
 // int MILK_MIDDLE_TEMP_TIME = 10;
 // int MILK_LOW_TEMP_TIME = 10;
 
-int MILK_HOMOGENIZE_TIME; // = 10;    // M_H_T - homogenize time
+int MILK_HOMOGENIZE_TIME; // = 10;    // M_HO_T - homogenize time
 int HEAT_WATER_DRAIN_TIME; // = 5;    // H_W_D_T - darin water time in coile, heat to cool change
 
 int EEPROM_state;                     // state, 0-no save
@@ -44,7 +44,7 @@ void begin_Flash() {
   preferences.putUInt("M_L_T", 45);
 
   preferences.putUInt("M_H_T_T", 10);
-  preferences.putUInt("M_H_T", 10);
+  preferences.putUInt("M_HO_T", 10);
 
   preferences.putUInt("H_W_D_T", 45);
 
@@ -74,7 +74,7 @@ void init_Flash() {
   // MILK_MIDDLE_TEMP_TIME = preferences.getUInt("MILK_MIDDLE_TEMP_TIME", 10);
   // MILK_LOW_TEMP_TIME = preferences.getUInt("MILK_LOW_TEMP_TIME", 10);
 
-  MILK_HOMOGENIZE_TIME = preferences.getUInt("M_H_T", 10);        // homogenize time
+  MILK_HOMOGENIZE_TIME = preferences.getUInt("M_HO_T", 10);        // homogenize time
   HEAT_WATER_DRAIN_TIME = preferences.getUInt("H_W_D_T", 5);       // darin water time in coile, heat to cool change
 
   preferences.end();
@@ -122,7 +122,7 @@ void flash_save(int state, int dis_val) {
       else if ( state == 4141) {
         if ( dis_val != MILK_LOW_TEMP) {
           preferences.begin("project001", false);
-          preferences.putUInt("M_M_T", dis_val);
+          preferences.putUInt("M_L_T", dis_val);
           MILK_LOW_TEMP = dis_val;
           // MILK_LOW_TEMP = preferences.getUInt("M_L_T", 45); 
           preferences.end();
@@ -158,8 +158,17 @@ void flash_save(int state, int dis_val) {
       else if ( state == 4241) {
         if ( dis_val != MILK_HOMOGENIZE_TIME) {
           preferences.begin("project001", false);
-          preferences.putUInt("M_H_T", dis_val);
+          preferences.putUInt("M_HO_T", dis_val);
           MILK_HOMOGENIZE_TIME = dis_val;
+          // MILK_HOMOGENIZE_TIME = preferences.getUInt("M_HO_T", 10); 
+          preferences.end();
+        }
+      }
+      else if ( state == 4251) {
+        if ( dis_val != HEAT_WATER_DRAIN_TIME) {
+          preferences.begin("project001", false);
+          preferences.putUInt("H_W_D_T", dis_val);
+          HEAT_WATER_DRAIN_TIME = dis_val;
           // MILK_HOMOGENIZE_TIME = preferences.getUInt("M_H_T", 10); 
           preferences.end();
         }

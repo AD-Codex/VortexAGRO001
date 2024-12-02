@@ -6,6 +6,10 @@
 #define BUTTON_BK_PIN 27      // back
 #define BUTTON_DN_PIN 26      // down
 
+#define ERROR_LED 32
+#define BUZZ_PIN 33
+
+
 
 unsigned long last_button_time = 0;
 
@@ -133,4 +137,32 @@ void button_Test() {
     Serial.println("Down pressed");
     down_BN.pressed = false;
   }
+}
+
+
+// init indicators Fn ----------------------------------------------
+void init_Indicators() {
+  pinMode( BUZZ_PIN, OUTPUT);
+  pinMode( ERROR_LED, OUTPUT);
+
+  digitalWrite( BUZZ_PIN, LOW);
+  digitalWrite( ERROR_LED, LOW);
+}
+
+void buzzerBeep( int num) {
+  for (int beep = 0; beep<num; beep++){
+    digitalWrite( BUZZ_PIN, HIGH);
+    delay(200);
+    digitalWrite( BUZZ_PIN, LOW);
+    delay(200);
+  }
+  
+}
+
+void buzzerHigh( bool state) {
+  digitalWrite( BUZZ_PIN, state);  
+}
+
+void  errorLED( bool state) {
+  digitalWrite( ERROR_LED, state);
 }

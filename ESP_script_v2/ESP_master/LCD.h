@@ -41,9 +41,21 @@ struct Dashboard {
       lcd.print(str);
     }
     else {
-      sprintf( str, "   %d", number);
-      lcd.setCursor(-4,3);
-      lcd.print(str);
+      if ( number < -1000){
+        number = number * -1;
+        int rateTemp = number%1000;
+        int actuTemp = number/1000;
+
+        sprintf( str, "   %d ----> %d", rateTemp, actuTemp);
+        lcd.setCursor(-4,3);
+        lcd.print(str);
+
+      }
+      else {
+        sprintf( str, "   %d", number*-1);
+        lcd.setCursor(-4,3);
+        lcd.print(str);
+      }
     }
     
   }
@@ -150,11 +162,13 @@ Dashboard dash_4210 = { ">1.Clean time_1", " 2.Clean time_2", " 3.Milk set T1", 
 Dashboard dash_4220 = { " 1.Clean time_1", ">2.Clean time_2", " 3.Milk set T1", " 4.Milk set T2"};
 Dashboard dash_4230 = { " 1.Clean time_1", " 2.Clean time_2", ">3.Milk set T1", " 4.Milk set T2"};
 Dashboard dash_4240 = { " 1.Clean time_1", " 2.Clean time_2", " 3.Milk set T1", ">4.Milk set T2"};
+Dashboard dash_4250 = { " 2.Clean time_2", " 3.Milk set T1", " 4.Milk set T2", ">5.Drain time"};
 
 Dashboard dash_4211 = { " Setting:", " Clean process", " Time set_1", " 15.00"};
 Dashboard dash_4221 = { " Setting:", " Clean process", " Time set_2", " 16.00"};
 Dashboard dash_4231 = { " Setting:", " Milk process", " Time set_1", " 17.00"};
 Dashboard dash_4241 = { " Setting:", " Milk process", " Time set_1", " 18.00"};
+Dashboard dash_4251 = { " Setting:", " Milk process", " Drain time", " 18.00"};
 
 Dashboard dash_4901 = { " Setting:", " Save Change", "   EN - yes", "   BK - skip"};
 

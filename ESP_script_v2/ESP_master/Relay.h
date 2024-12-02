@@ -17,17 +17,27 @@ struct Relay {
 
   void init() {
     pinMode(PIN, OUTPUT);
-    digitalWrite(PIN, LOW);
+    digitalWrite( PIN, HIGH);
   }
   
   void Trigger( bool open) {
     if ( open != state ) {
-      digitalWrite( PIN, open);
+      if ( open == true) {
+        digitalWrite( PIN, LOW);
+        Serial.print(name );
+        Serial.println(" state : ON");
+      }
+      else {
+        digitalWrite( PIN, HIGH);
+        Serial.print(name );
+        Serial.println(" state : OFF");
+      }
+      
       state = open;
     }
-    Serial.print(name );
-    Serial.print(" state : ");
-    Serial.println(open);
+    // Serial.print(name );
+    // Serial.print(" state : ");
+    // Serial.println(open);
   }
 
   void Click() {
@@ -61,8 +71,8 @@ void init_Relay() {
   boilPump.Trigger(false);
   coolPump.Trigger(false);
   mixer.Trigger(false);
-  homogenizerOn.Trigger(true);
-  homogenizerOff.Trigger(true);
+  homogenizerOn.Trigger(false);
+  homogenizerOff.Trigger(false);
   
   
 }

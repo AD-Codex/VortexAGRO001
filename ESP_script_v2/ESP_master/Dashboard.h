@@ -45,8 +45,10 @@ int state_list[][5] = {
   {4221, 4901, 4220,    8,    2},
   {4230, 4231, 4020, 4220, 4240},
   {4231, 4901, 4230,    8,    2},
-  {4240, 4241, 4020, 4230,    0},
+  {4240, 4241, 4020, 4230, 4250},
   {4241, 4901, 4240,    8,    2},
+  {4250, 4251, 4020, 4240,    0},
+  {4251, 4901, 4240,    8,    2},
 
   {4901, 4010, 4010,    0,    0},
 
@@ -108,7 +110,6 @@ int state_list[][5] = {
   {5375,    0, 5370,    0,    0},
 
   // 6000 ----------------
-
   {6000, 6001,     0, 5000,    0},
   {6001,    0, 6000,    0,    0}
   
@@ -155,6 +156,21 @@ void dashboard(int state){
           break;
       case 4241:
           dash_4241.display_(display_value);
+          break;
+      case 4251:
+          dash_4251.display_(display_value);
+          break;
+      case 5015:
+          number = 50;
+          dash_5015.display_(-number);
+          break;
+      case 5025:
+          number = TSensor2.Read();
+          dash_5025.display_(-number);
+          break;
+      case 5035:
+          number = 100;
+          dash_5035.display_(-number);
           break;
     }
     
@@ -271,6 +287,14 @@ void dashboard(int state){
           dash_4241.display_(display_value);
           break;
 
+      case 4250:
+          dash_4250.display_(0);
+          break;
+      case 4251:
+          display_value = HEAT_WATER_DRAIN_TIME;
+          dash_4251.display_(display_value);
+          break;
+
 
       case 4901:
           dash_4901.display_(0);
@@ -301,8 +325,8 @@ void dashboard(int state){
           dash_5010.display_(0);
           break;
       case 5015:  
-          number = TSensor1.Read();
-          dash_5015.display_(number);
+          number = 50;
+          dash_5015.display_(-number);
           break;
           
       case 5020:  
@@ -310,15 +334,15 @@ void dashboard(int state){
           break;
       case 5025:
           number = TSensor2.Read();
-          dash_5025.display_(number);
+          dash_5025.display_(-number);
           break;
           
       case 5030:  
           dash_5030.display_(0);
           break;
       case 5035:
-          number = display_value;
-          dash_5035.display_(number);
+          number = 100;
+          dash_5035.display_(-number);
           break;
   // valve testing -----------------        
       case 5201:  

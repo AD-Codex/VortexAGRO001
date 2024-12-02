@@ -50,11 +50,11 @@ int slave_callback(String send_) {
   while (true) {
     if (SerialPort.available()) {
       char receivedChar = SerialPort.read();
-      // Serial.println(number);
+      // Serial.println(receivedChar);
 
       if ( receivedChar == '\n') {
         Msg = receivedMessage;
-        Serial.println(receivedMessage);
+        // Serial.println(receivedMessage);
         receivedMessage = "";
       }
       else {
@@ -180,15 +180,19 @@ int slave_callback(String send_) {
       slave_callback_state = 0;
       break;
     }
-    else if ( (millis() - time_start) > 5000 ) {
+    else if ( (millis() - time_start) > 8000 ) {
       Serial.println("error, time exceed");
+      errorLED( true);
       buzzerBeep(3);
+      errorLED( false);
       slave_callback_state = -2;
       break;
     }
     else if ( Msg == "9999") {
       Serial.println("stm recived, time exceed");
+      errorLED( true);
       buzzerBeep(3);
+      errorLED( false);
       slave_callback_state = -1;
       break;
     }
@@ -212,20 +216,20 @@ struct Valve {
     int open_state = 0;
     Serial.print(valve);
     if ( state == true) {
-      Serial.println(" valve_opening.... ");
+      Serial.print(" valve_opening.... ");
       
       SerialPort.print(openIndex + "\n");
-      Serial.println(openIndex);
+      // Serial.println(openIndex);
       open_state = slave_callback(openIndex);
 
       if ( open_state == 1) {
-        Serial.println(" valve_opend ");
+        // Serial.println(" valve_opend ");
         state = state;
       }
       else if ( open_state == -1) {
         Serial.println(" valve_opening failed");
       }
-      if ( open_state == -2) {
+      else if ( open_state == -2) {
         Serial.println(" valve_opening again.... ");      
         SerialPort.print(openIndex + "\n");
         // Serial.println(openIndex);
@@ -236,11 +240,11 @@ struct Valve {
       Serial.println(" valve_closing.... ");
       
       SerialPort.print(closeIndex + "\n");
-      Serial.println(closeIndex);
+      // Serial.println(closeIndex);
       open_state = slave_callback(closeIndex);
 
       if ( open_state == 1) {
-        Serial.println(" valve_closed ");
+        // Serial.println(" valve_closed ");
         state = state;
       }
       else if ( open_state == -1) {
@@ -278,18 +282,33 @@ struct Valve {
   
 };
 
+// Valve valve_A1 = {"valve1", "1010", "1011", "1013", "1014", false};               // valve 1
+// Valve valve_A2 = {"valve2", "1020", "1021", "1023", "1024", false};               // valve 2
+// Valve valve_A3 = {"valve3", "1030", "1031", "1033", "1034", false};
+// Valve valve_A4 = {"valve4", "1040", "1041", "1043", "1044", false};               // valve 4
+// Valve valve_A5 = {"valve5", "1050", "1051", "1053", "1054", false};               // valve 5
+// Valve valve_A6 = {"valve6", "1060", "1061", "1063", "1064", false};               // valve 6
+// Valve valve_B1 = {"valve7", "2010", "2011", "2013", "2014", false};               // valve 7
+// Valve valve_B2 = {"valve8", "2020", "2021", "2023", "2024", false};               // valve 8
+// Valve valve_B3 = {"valve9", "2030", "2031", "2033", "2034", false};
+// Valve valve_B4 = {"valve10", "2040", "2041", "2043", "2044", false};              // valve 3
+// Valve valve_B5 = {"valve11", "2050", "2051", "2053", "2054", false};              // valve 9
+// Valve valve_B6 = {"valve12", "2060", "2061", "2063", "2064", false};
+
+
 Valve valve_A1 = {"valve1", "1010", "1011", "1013", "1014", false};
 Valve valve_A2 = {"valve2", "1020", "1021", "1023", "1024", false};
-Valve valve_A3 = {"valve3", "1030", "1031", "1033", "1034", false};
+Valve valve_B4 = {"valve3", "1030", "1031", "1033", "1034", false};
 Valve valve_A4 = {"valve4", "1040", "1041", "1043", "1044", false};
 Valve valve_A5 = {"valve5", "1050", "1051", "1053", "1054", false};
 Valve valve_A6 = {"valve6", "1060", "1061", "1063", "1064", false};
 Valve valve_B1 = {"valve7", "2010", "2011", "2013", "2014", false};
 Valve valve_B2 = {"valve8", "2020", "2021", "2023", "2024", false};
-Valve valve_B3 = {"valve9", "2030", "2031", "2033", "2034", false};
-Valve valve_B4 = {"valve10", "2040", "2041", "2043", "2044", false};
-Valve valve_B5 = {"valve11", "2050", "2051", "2053", "2054", false};
+Valve valve_B5 = {"valve9", "2030", "2031", "2033", "2034", false};
+Valve valve_A3 = {"valve10", "2040", "2041", "2043", "2044", false};
+Valve valve_B3 = {"valve11", "2050", "2051", "2053", "2054", false};
 Valve valve_B6 = {"valve12", "2060", "2061", "2063", "2064", false};
+
 
 
 
@@ -482,7 +501,7 @@ void valveExample() {
   delay(5000);
 
   SerialPort.print("1011\n");
-  Serial.println("1010");
-  slave_callback("1010");
+  Serial.println("1011");
+  slave_callback("1011");
   delay(5000);
 }

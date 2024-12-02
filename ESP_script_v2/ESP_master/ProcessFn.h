@@ -20,10 +20,10 @@ int delay5s() {
   int start_time = millis();
   int delay5s_state = 1;
 
-  reset_buttons();
+  // reset_buttons();
   Serial.print("button ");
   Serial.println(back_BN.pressed);
-  while ( (millis() - start_time) <= 5000 ) {
+  while ( (millis() - start_time) <= 5000  && delay5s_state == 1) {
     if ( back_BN.pressed == true ) {
       back_BN.pressed = false;
       dash_0030.display_(0);
@@ -44,7 +44,8 @@ int delay5s() {
           delay5s_state = 1;
           break;
         }
-        delay(50);
+        delay(10);
+
       }
 
     }
@@ -74,32 +75,43 @@ int HeatToTemp( int temp) {
 
   HeatToTemp_process = delay5s();
   if ( HeatToTemp_process == 1) {
-    valve_A4.open(true);
-    valve_A1.open(true);
-    valve_A3.open(true);
-    boilPump.Trigger(true);
-    mixer.Trigger(true);
+    HeatToTemp_process = valve_A4.open(true);
+    HeatToTemp_process = valve_A1.open(true);
+    HeatToTemp_process = valve_A3.open(true);
+    
+    if ( HeatToTemp_process == 1) {
+      boilPump.Trigger(true);
+      mixer.Trigger(true);
+      // delay(2000);
 
-    while ( HeatToTemp_process == 1) {
-      if ( TSensor1.Read() > temp || true) {
-        if ( TSensor2.Read() >= temp || true) {
-          break;
+      int actualHeatTemp = 0;
+      while ( HeatToTemp_process == 1) {
+        HeatToTemp_process = delay5s();
+
+        if ( true) {
+          actualHeatTemp = TSensor2.Read();
+          if ( actualHeatTemp >= temp ) {
+            break;
+          }
+
+        }
+        else {
+          Serial.println(" Boiler Temp not at range");
         }
 
-      }
-      else {
-        Serial.println(" Boiler Temp not at range");
-      }
+        dash_3010.display_( -1 * actualHeatTemp);
 
-      HeatToTemp_process = delay5s();
-      
+        
+      }
     }
+    
 
     mixer.Trigger(false);
     boilPump.Trigger(false);
     valve_A4.open(false);
     valve_A1.open(false);
     valve_A3.open(false);
+    delay(2000);
 
   }
 
@@ -141,37 +153,52 @@ int CoolToTemp( int temp, int drain_time) {
 
   coolToTemp_process = delay5s();
   if ( coolToTemp_process == 1) {
+    valve_A5.open(true);
     valve_B1.open(true);
-    valve_B2.open(true);
-    for ( int DrainInt = 0; DrainInt < (drain_time/5); DrainInt = DrainInt + 1) {
-      coolToTemp_process = delay5s();
-      if ( coolToTemp_process != 1) {
-        break;
-      }
-    }
-    valve_B2.open(false);
 
+    if ( drain_time > 0) {
+      valve_B2.open(true);
+      coolPump.Trigger(true);
+      delay(2000);
+
+      for ( int DrainInt = 0; DrainInt < (drain_time*12); DrainInt = DrainInt + 1) {
+        coolToTemp_process = delay5s();
+        if ( coolToTemp_process != 1) {
+          break;
+        }
+      }
+      valve_B2.open(false);
+      coolPump.Trigger(false);
+    }
+    
 
     Serial.println(" Starting Cooling process");
-    valve_A5.open(true);
-    valve_A6.open(true);
-    coolPump.Trigger(true);
-    mixer.Trigger(true);
+    coolToTemp_process = valve_A6.open(true);
+    if ( coolToTemp_process == 1) {
+      coolPump.Trigger(true);
+      mixer.Trigger(true);
+      delay(2000);
 
-    while ( coolToTemp_process == 1) {
-      if ( TSensor2.Read() <= temp || true) {
-        break;
+      while ( coolToTemp_process == 1) {
+        int actualTemp = TSensor2.Read();
+        if ( actualTemp <= temp ) {
+          break;
+        }
+
+        dash_3030.display_( -1 * actualTemp);
+
+        coolToTemp_process = delay5s();
+
       }
-
-      coolToTemp_process = delay5s();
-
     }
+    
 
     mixer.Trigger(false);
     coolPump.Trigger(false);
     valve_A6.open(false);
     valve_B1.open(false);
     valve_A5.open(false);
+    delay(2000);
 
   }
 
@@ -213,24 +240,29 @@ int KeepTempLvl( int time)  {
 
   KeepTempLvl_process = delay5s();
   if ( KeepTempLvl_process == 1) {
-    valve_A4.open(true);
-    valve_A2.open(true);
-    boilPump.Trigger(true);
-    mixer.Trigger(true);
+    KeepTempLvl_process = valve_A4.open(true);
+    KeepTempLvl_process = valve_A2.open(true);
+    if ( KeepTempLvl_process == 1) {
+      boilPump.Trigger(true);
+      mixer.Trigger(true);
+      delay(2000);
 
-    for ( int KeepTempInt = 0; KeepTempInt < (time/5); KeepTempInt = KeepTempInt + 1) {
-      dash_0040.display_(time - KeepTempInt*5);
-      KeepTempLvl_process = delay5s();
-      buzzerBeep(1);
-      if ( KeepTempLvl_process != 1) {
-        break;
+      for ( int KeepTempInt = 0; KeepTempInt < (time*12); KeepTempInt = KeepTempInt + 1) {
+        dash_0040.display_(time*60 - KeepTempInt*5);
+        KeepTempLvl_process = delay5s();
+        buzzerBeep(1);
+        if ( KeepTempLvl_process != 1) {
+          break;
+        }
       }
     }
+    
 
     mixer.Trigger(false);
     boilPump.Trigger(false);
     valve_A4.open(false);
     valve_A2.open(false);
+    delay(2000);
 
   }
 
@@ -264,20 +296,25 @@ int Homogenize( int time) {
 
   Homogenize_process = delay5s();
   if ( Homogenize_process == 1) {
-    valve_B3.open(true);
-    homogenizerOn.Click();
+    Homogenize_process = valve_B3.open(true);
+    if ( Homogenize_process == 1) {
+      homogenizerOn.Click();
+      delay(2000);
 
-    for ( int HomogenizeInt = 0; HomogenizeInt < (time/5); HomogenizeInt = HomogenizeInt + 1 ) {
-      dash_0050.display_(time - HomogenizeInt*5);
-      Homogenize_process = delay5s();
-      buzzerBeep(1);
-      if ( Homogenize_process != 1) {
-        break;
+      for ( int HomogenizeInt = 0; HomogenizeInt < (time*12); HomogenizeInt = HomogenizeInt + 1 ) {
+        dash_0050.display_(time*60 - HomogenizeInt*5);
+        Homogenize_process = delay5s();
+        buzzerBeep(1);
+        if ( Homogenize_process != 1) {
+          break;
+        }
       }
-    }
 
-    homogenizerOff.Click();
+      homogenizerOff.Click();
+    }
+    
     valve_B3.open(false);
+    delay(2000);
 
   }
 
@@ -334,6 +371,7 @@ int DrainVat() {
   Drain_process = 1;
   reset_buttons();
   Serial.println("Start Drain process");
+  buzzerHigh(true);
   while (Drain_process == 1) {
     if ( enter_BN.pressed ) {
       enter_BN.pressed = false;
@@ -346,6 +384,7 @@ int DrainVat() {
 
     delay(10);
   }
+  buzzerHigh(false);
 
   return Drain_process;
 }

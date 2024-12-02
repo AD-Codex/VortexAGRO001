@@ -32,7 +32,7 @@ int stm32_check() {
       }
       else if ( SerialPort.available()) {
         char receivedChar = SerialPort.read();
-        // Serial.println(receivedChar);
+        Serial.println(receivedChar);
         if ( receivedChar == '\n') {
           Serial.println(receivedMessage);
           if ( receivedMessage == "1001") {
@@ -67,7 +67,7 @@ int stm32_check() {
       else if ( SerialPort.available()) {
         char receivedChar = SerialPort.read();
         if ( receivedChar == '\n') {
-          // Serial.println(receivedMessage);
+          Serial.println(receivedMessage);
           if ( receivedMessage == "2001") {
             Serial.println("STM 2 detected..");
             Serial_com = 1;
